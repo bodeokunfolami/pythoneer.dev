@@ -1,0 +1,331 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-805TK7MTRE"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-805TK7MTRE');
+</script>
+
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <title> Operators in Python | Pythoneer </title>
+  <link rel="canonical" href="/operators-in-python/index.html">
+
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180">
+    <link rel="icon" type="image/png" href="/theme/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="/theme/favicon-16x16.png" sizes="16x16">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#333333">
+
+  <link rel="stylesheet" href="/theme/style.css">
+  <link rel="stylesheet" href="/theme/theme.css">
+  <link rel="stylesheet" href="/theme/oldstyle.css">
+
+ 
+<meta name="description" content="Operators perform computer operations on one or more python values or expression. The value the operator is operating on is called an operand. There are three different category of operators in python. They are: Arithmetic operators Comparison operators Logical operators Arithmetic operators This operators include the four basic arithmetic operations …" />
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@bodeokunfolami" />
+<meta name="twitter:creator" content="@bodeokunfolami" />
+<meta property="og:url" content="/operators-in-python/index.html" />
+<meta property="og:title" content="Operators in Python" />
+<meta property="og:description" content="Operators perform computer operations on one or more python values or expression. The value the operator is operating on is called an operand. There are three different category of operators in python. They are: Arithmetic operators Comparison operators Logical operators Arithmetic operators This operators include the four basic arithmetic operations …" />
+<meta property="og:image" content="/theme/ogimage.png" />
+<meta name="twitter:card" content="summary_large_image">
+
+
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg navbar-white bg-white">
+    <div class="container">
+      <div class="navbar-brand">
+        <a href="/" class="text-decoration-none">
+          <img width="80px" src="/theme/pythoneer-dev.png" alt="Pythoneer">
+        </a>  
+      </div>
+      <div class="collapse navbar-collapse">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a href="/pages/about/" class="nav-link">About</a>
+          </li>
+          <li class="nav-item">
+            <a href="/pages/contact/" class="nav-link">Contact</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <header class="header">
+    <div class="container h-100">
+      <div class="row align-items-center h-100">
+        <div class="col-sm-10">
+<span class="d-block text-uppercase fs-5 text-white">Sat 15 October 2022</span>
+<h1 class="display-2">Operators in Python</h1>
+<div class="d-flex justify-content-center">
+</div>
+        </div>
+    </div>
+  </div>
+</header>
+
+  <div class="main">
+    <div class="container">
+      <span class="text-muted text-uppercase"></span>
+      <h1 class="display-4 mt-3"></h1>
+      <div class="mb-md-4 mb-3"></div>
+<article class="article">
+  <div class="content">
+    <p>Operators perform computer operations on one or more python values or expression. The value the operator is operating on is called an operand. There are three different category of operators in python. They are:</p>
+<ol>
+<li>Arithmetic operators</li>
+<li>Comparison operators</li>
+<li>Logical operators</li>
+</ol>
+<h3 class="my-3 my-md-4">Arithmetic operators</h3>
+<p>This operators include the four basic arithmetic operations which are addition, subtraction, multiplication and division. Python can be used as a simple calculator because of these maths operators. Other operators that may not  be common to us are the modulus operator and the exponent or power operator.</p>
+<table class="table-bordered table">
+<thead>
+<tr>
+<th style="text-align: left;">Name</th>
+<th style="text-align: left;">Operator</th>
+<th style="text-align: left;">Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Addition</td>
+<td style="text-align: left;">+</td>
+<td style="text-align: left;">x + y</td>
+</tr>
+<tr>
+<td style="text-align: left;">Subtraction</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">x - y</td>
+</tr>
+<tr>
+<td style="text-align: left;">Multiplication</td>
+<td style="text-align: left;">*</td>
+<td style="text-align: left;">x * y</td>
+</tr>
+<tr>
+<td style="text-align: left;">Division</td>
+<td style="text-align: left;">/</td>
+<td style="text-align: left;">x / y</td>
+</tr>
+<tr>
+<td style="text-align: left;">Exponentiation</td>
+<td style="text-align: left;">**</td>
+<td style="text-align: left;">x**y</td>
+</tr>
+<tr>
+<td style="text-align: left;">Modulus</td>
+<td style="text-align: left;">%</td>
+<td style="text-align: left;">x % y</td>
+</tr>
+</tbody>
+</table>
+<p>Example arithmetic operations:</p>
+<pre><code class="language-python">5**2 # raise 5 to the power of 2, 25
+
+5 % 2 # returns the remainder of 5 / 2, 1
+</code></pre>
+<h3 class="my-3 my-md-4">Comparison Operators</h3>
+<p>This operator compares two values and returns a boolean (True/False). There are 7 of them. One thing to note that in python the <code>==</code> comparison operator is the equal-to we all know and love, not to be confused with the assignment operator <code>=</code> used for binding a variable name to a value. The result of a comparison operation is always going to be a boolean value.</p>
+<table class="table-bordered table">
+<thead>
+<tr>
+<th style="text-align: left;">Name</th>
+<th style="text-align: left;">Operator</th>
+<th style="text-align: left;">Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Equal</td>
+<td style="text-align: left;">==</td>
+<td style="text-align: left;">x == y</td>
+</tr>
+<tr>
+<td style="text-align: left;">Not equal</td>
+<td style="text-align: left;">!=</td>
+<td style="text-align: left;">x != y</td>
+</tr>
+<tr>
+<td style="text-align: left;">Greater than</td>
+<td style="text-align: left;">&gt;</td>
+<td style="text-align: left;">x &gt; y</td>
+</tr>
+<tr>
+<td style="text-align: left;">Less than</td>
+<td style="text-align: left;">&lt;</td>
+<td style="text-align: left;">x &lt; y</td>
+</tr>
+<tr>
+<td style="text-align: left;">Greater than or equal to</td>
+<td style="text-align: left;">&gt;=</td>
+<td style="text-align: left;">x &gt;= y</td>
+</tr>
+<tr>
+<td style="text-align: left;">Less than or equal to</td>
+<td style="text-align: left;">&lt;=</td>
+<td style="text-align: left;">x &lt;= y</td>
+</tr>
+</tbody>
+</table>
+<p>Example comparison operations:</p>
+<pre><code class="language-python">'ball' == 'ball' # True
+
+5 &gt; 4 # 5 greater than 4, True
+
+15 &lt; 10 # 15 less than 10, False
+</code></pre>
+<h3 class="my-3 my-md-4">Logical Operators</h3>
+<p>There are only three logical operators in python. Logical operators are used conditionally join values and expression to form a more complex expression. An understanding of truth table will give us an idea of the result of logical operations.</p>
+<table class="table-bordered table">
+<thead>
+<tr>
+<th style="text-align: left;">Operator</th>
+<th style="text-align: left;">Description</th>
+<th style="text-align: left;">Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">and</td>
+<td style="text-align: left;">Returns True only when both statements are true</td>
+<td style="text-align: left;">x == 5 and y == 10</td>
+</tr>
+<tr>
+<td style="text-align: left;">or</td>
+<td style="text-align: left;">Returns True if any of the statements is true</td>
+<td style="text-align: left;">x == 5 or y == 10</td>
+</tr>
+<tr>
+<td style="text-align: left;">not</td>
+<td style="text-align: left;">Opposite of the result, True gives False</td>
+<td style="text-align: left;">not (x == 5)</td>
+</tr>
+</tbody>
+</table>
+<h5>Truth Table</h5>
+<table class="table-bordered table">
+<thead>
+<tr>
+<th style="text-align: left;">condition X</th>
+<th style="text-align: left;">condition Y</th>
+<th style="text-align: left;">X and Y</th>
+<th style="text-align: left;">X or Y</th>
+<th style="text-align: left;">not X</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">False</td>
+<td style="text-align: left;">False</td>
+<td style="text-align: left;">False</td>
+<td style="text-align: left;">False</td>
+<td style="text-align: left;">True</td>
+</tr>
+<tr>
+<td style="text-align: left;">False</td>
+<td style="text-align: left;">True</td>
+<td style="text-align: left;">False</td>
+<td style="text-align: left;">True</td>
+<td style="text-align: left;">True</td>
+</tr>
+<tr>
+<td style="text-align: left;">True</td>
+<td style="text-align: left;">False</td>
+<td style="text-align: left;">False</td>
+<td style="text-align: left;">True</td>
+<td style="text-align: left;">False</td>
+</tr>
+<tr>
+<td style="text-align: left;">True</td>
+<td style="text-align: left;">True</td>
+<td style="text-align: left;">True</td>
+<td style="text-align: left;">True</td>
+<td style="text-align: left;">False</td>
+</tr>
+</tbody>
+</table>
+<p>Example of logical operations</p>
+<pre><code class="language-python">5 == 5 and 5 &gt; 2 # 5 equals 5 (True) and 5 greater than 2 (True)
+
+5 != 2 or 5 &lt; 4 # 5 not equals 2 (True) or 5 less than 4 (False)
+
+5 &lt; 2 and 5 &gt; 2 # 5 less than 2 (False) and 5 greater than 2 (True)
+
+not 5 == 5 # not 5 equals 5 (True)
+</code></pre>
+<p>These are the classes of operators in python and their operations. Understanding them will help build the foundation for you to become an expert in python.</p>   </div>
+</article>
+<ul class="list-unstyled">
+  <li class="d-inline">
+    <a href="/tag/python.html" class="badge text-bg-success text-decoration-none">python</a>
+  </li>
+</ul>
+<hr>
+<div class="mb-3">Share this:</div>
+<a target="_blank" href="https://twitter.com/intent/tweet?text=Operators in Python by @bodeokunfolami at https://pythoneer.dev/operators-in-python/">
+  <img src="/theme/twitter.png" width="45px" alt="share button">
+</a>
+     </div>
+  </div>
+
+  <footer class="footer pb-0">
+    <div class="container">
+      <div class="card mb-4">
+        <div class="card-body">
+          <form action="https://pythoneer.dev/sendy/subscribe" method="post" accept-charset="utf-8">
+            <label for="newsletter" class="form-label fs-4">Want to learn python? 💻</label>
+            <p class="text-muted">
+             Helpful python tips directly in your inbox 🔥
+            </p>
+            <div class="mb-3">
+              <input type="email" class="form-control" name="email" placeholder="Email Address">
+            </div>
+            <input type="hidden" name="list" value="Bb5KQVaGFx1fw0h6N4tWbw"/>
+	          <input type="hidden" name="subform" value="yes"/>
+            <button type="submit" class="btn btn-success btn-lg">Subscribe</button>
+          </form>
+        </div>
+      </div>
+    </div>
+<div class="d-flex justify-content-center">
+  <ul class="text-center list-unstyled">
+    <li class="d-inline">
+      <a href="https://www.twitter.com/bodeokunfolami" target="_blank">Twitter</a>
+    </li>
+    <span>&middot;</span>
+    <li class="d-inline">
+      <a href="https://www.github.com/bodeokunfolami" target="_blank">Github</a>
+    </li>
+    <span>&middot;</span>
+    <li class="d-inline">
+      <a href="https://www.linkedin.com/in/bode-okunfolami-04156419a/" target="_blank">Linkedin</a>
+    </li>
+    <span>&middot;</span>
+    <li class="d-inline">
+      <a href="https://www.youtube.com/@PythoneerAcademy" target="_blank">Youtube</a>
+    </li>
+  </ul>
+</div>
+<div class="d-flex justify-content-center bg-white p-2">
+  <span>2022 &copy; <a class="text-primary text-decoration-none" href="https://pythoneer.dev">Pythoneer</a></span>
+</div>  </footer>
+
+  <script type="text/javascript" src="/theme/main.js" crossorigin="anonymous"></script>
+</body>
+
+</html>

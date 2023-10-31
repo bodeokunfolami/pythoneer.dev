@@ -1,0 +1,11 @@
+{
+    "presets": ["@babel/preset-env"],
+    "plugins": [
+        ["prismjs", {
+            "languages": ["javascript", "python", "c", "bash", "sql", "treeview", "html"],
+            "plugins": ["toolbar", "copy-to-clipboard"],
+            "theme": "okaidia",
+            "css": true
+        }]
+    ]
+}

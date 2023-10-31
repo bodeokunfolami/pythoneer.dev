@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-805TK7MTRE"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-805TK7MTRE');
+</script>
+
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <title> Database Relationships Explained | Pythoneer </title>
+  <link rel="canonical" href="/database-relationships-explained/index.html">
+
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180">
+    <link rel="icon" type="image/png" href="/theme/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="/theme/favicon-16x16.png" sizes="16x16">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#333333">
+
+  <link rel="stylesheet" href="/theme/style.css">
+  <link rel="stylesheet" href="/theme/theme.css">
+  <link rel="stylesheet" href="/theme/oldstyle.css">
+
+ 
+<meta name="description" content="A relational database is a widely used database in the world, it organizes data inside a table in the form of rows and columns. A relational database has a predefined structure in which data is organized. Relationships represent connections between two or more tables. Relationships help structure database tables relate …" />
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@bodeokunfolami" />
+<meta name="twitter:creator" content="@bodeokunfolami" />
+<meta property="og:url" content="/database-relationships-explained/index.html" />
+<meta property="og:title" content="Database Relationships Explained" />
+<meta property="og:description" content="A relational database is a widely used database in the world, it organizes data inside a table in the form of rows and columns. A relational database has a predefined structure in which data is organized. Relationships represent connections between two or more tables. Relationships help structure database tables relate …" />
+<meta property="og:image" content="/theme/ogimage.png" />
+<meta name="twitter:card" content="summary_large_image">
+
+
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg navbar-white bg-white">
+    <div class="container">
+      <div class="navbar-brand">
+        <a href="/" class="text-decoration-none">
+          <img width="80px" src="/theme/pythoneer-dev.png" alt="Pythoneer">
+        </a>  
+      </div>
+      <div class="collapse navbar-collapse">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a href="/pages/about/" class="nav-link">About</a>
+          </li>
+          <li class="nav-item">
+            <a href="/pages/contact/" class="nav-link">Contact</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <header class="header">
+    <div class="container h-100">
+      <div class="row align-items-center h-100">
+        <div class="col-sm-10">
+<span class="d-block text-uppercase fs-5 text-white">Mon 20 March 2023</span>
+<h1 class="display-2">Database Relationships Explained</h1>
+<div class="d-flex justify-content-center">
+</div>
+        </div>
+    </div>
+  </div>
+</header>
+
+  <div class="main">
+    <div class="container">
+      <span class="text-muted text-uppercase"></span>
+      <h1 class="display-4 mt-3"></h1>
+      <div class="mb-md-4 mb-3"></div>
+<article class="article">
+  <div class="content">
+    <p>A relational database is a widely used database in the world, it organizes data inside a table in the form of rows and columns. A relational database has a predefined structure in which data is organized. Relationships represent connections between two or more tables. Relationships help structure database tables relate with each other. There are three major kinds of relationships found in relational databases, they are:</p>
+<ol>
+<li>One-to-One</li>
+<li>One-to-Many</li>
+<li>Many-to-Many</li>
+</ol>
+<blockquote class="custom-blockquote">
+<p>One-to-Many relationship is the most common database relationship</p>
+</blockquote>
+<h3 class="my-3 my-md-4">One-to-One Relationship</h3>
+<p>A One-to-One relationship is used to extend a database table to another table. One-to-one relationships combine the two tables as though they are the same tables. For example, a user table has a one-to-one relationship with a profile table, this means that for every user record, there is exactly one profile record. The user and profile table can have only one record on each side of the relationship.</p>
+<p><center>
+<img alt="one-to-one img" class="my-3 img-fluid shadow my-md-4" src="/images/one-to-one.png"/>
+<center></center></center></p>
+<p>In the diagram above, the avatar for the user is stored in the profile table. A user cannot have more than one profile.</p>
+<p>The SQL representation of the diagram above.</p>
+<pre><code class="language-sql">CREATE TABLE user (
+  userId INT PRIMARY KEY AUTO_INCREMENT,
+  username VARCHAR(255) NOT NULL,
+  password VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE profile (
+  profileId INT PRIMARY KEY AUTO_INCREMENT,
+  avatar VARCHAR(50) NULL,
+  userId INT UNIQUE NOT NULL
+);
+</code></pre>
+<p>Define a one-to-one relationship between the user and the profile table</p>
+<pre><code class="language-sql">ALTER TABLE profile
+ADD CONSTRAINT FK_user_profile FOREIGN KEY (userId)
+REFERENCES user (userId);
+</code></pre>
+<blockquote class="custom-blockquote">
+<p>This is a one-to-one relationship because the userId was set to UNIQUE for every profile record.</p>
+</blockquote>
+<h3 class="my-3 my-md-4">One-to-Many Relationship</h3>
+<p>This relationship allows duplicate values in the table, the relationship is defined. This relationship lets a single record from one table be associated with multiple records from another table. For example, When a single post has multiple comments, this can be represented in a database using a one-to-many relationship.</p>
+<p><center>
+<img alt="one-to-many img" class="my-3 img-fluid shadow my-md-4" src="/images/one-to-many.png"/>
+<center></center></center></p>
+<p>SQL representation of diagram above</p>
+<pre><code class="language-sql">CREATE TABLE post (
+  postId INT PRIMARY KEY AUTO_INCREMENT,
+  title VARCHAR(255) NOT NULL,
+  body TEXT NOT NULL
+);
+
+
+CREATE TABLE comment (
+  commentId INT PRIMARY KEY AUTO_INCREMENT,
+  body TEXT NOT NULL,
+  postId INT NOT NULL
+);
+</code></pre>
+<p>Define the relationship with a foreign key on the postId column in the comment table</p>
+<pre><code class="language-sql">ALTER TABLE comment
+ADD CONSTRAINT FK_post_comment FOREIGN KEY (postId)
+REFERENCES post (postId);
+</code></pre>
+<p>The foreign key constraint will relate each record in the comment table to a single record in the post table.</p>
+<h3 class="my-3 my-md-4">Many-to-Many Relationship</h3>
+<p>This relationship is used when multiple records in one table are associated with multiple records in another table. An example of a many-to-many relationship is the relationship between posts and tags, any number of posts can have any number of tags. We can have multiple post records and at the same time multiple tags related to each other. A Many-to-Many relationship is created with two foreign key constraints from the junction table to the individual tables involved in the relationship. A junction table is a separate table used to track a many-to-many relationship.</p>
+<p><center>
+<img alt="many-to-many img" class="my-3 img-fluid shadow my-md-4" src="/images/many-to-many.png"/>
+<center></center></center></p>
+<p>The SQL representation of the diagram above</p>
+<pre><code class="language-sql">CREATE TABLE post (
+  postId INT PRIMARY KEY AUTO_INCREMENT,
+  title VARCHAR(255) NOT NULL,
+  body TEXT NOT NULL
+);
+
+CREATE TABLE tag (
+  tagId INT PRIMARY KEY AUTO_INCREMENT,
+  name VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE tagged_items (
+  postId INT NOT NULL,
+  tagId INT NOT NULL,
+);
+</code></pre>
+<p>Create the foreign key constraints for the junction table <code>tagged_items</code></p>
+<pre><code class="language-sql">ALTER TABLE tagged_items
+ADD CONSTRAINT FK_post_tagged_items FOREIGN KEY (postId)
+REFERENCES post (postId);
+
+ALTER TABLE tagged_items
+ADD CONSTRAINT FK_tag_tagged_items FOREIGN KEY (tagId)
+REFERENCES tag (tagId);
+</code></pre>
+<p>The junction table will have two one-to-many relationships, one for the post table and one for the tag table.</p>
+<h3 class="my-3 my-md-4">Querying Tables With Relationships</h3>
+<p>When a table has a relationship with other tables, we can easily query the related table using the <code>JOIN</code> statement. The join statements let us look up records in a related table. The join statement needs a link that is, a record that is the same in both tables. We can query related tables with the join statement in three ways, inner, left, and right join. Inner join is the most basic way to join two tables together.</p>
+<p>We can query a table with a one-to-one relationship with</p>
+<pre><code class="language-sql">SELECT u.username, p.avatar FROM users AS u
+INNER JOIN profile AS p ON u.userId = p.userId
+WHERE p.profileId = [id];
+</code></pre>
+<p>Similarly, we can also query a one-to-many relationship. for example get all the comments for a particular post.</p>
+<pre><code class="language-sql">SELECT c.body FROM post AS p
+INNER JOIN comment AS c ON p.postId = c.postId
+WHERE p.postId = [id]; 
+</code></pre>
+<p>Querying a many-to-many relationship is similar to that of a one-to-many relationship the only difference it involves tables, so there will be two join statements in a single SQL query.</p>
+<p>Database relationships are important in database modeling. A proper database utilizes relationships to minimize duplication of data.</p>   </div>
+</article>
+<ul class="list-unstyled">
+  <li class="d-inline">
+    <a href="/tag/mysql.html" class="badge text-bg-success text-decoration-none">mysql</a>
+  </li>
+</ul>
+<hr>
+<div class="mb-3">Share this:</div>
+<a target="_blank" href="https://twitter.com/intent/tweet?text=Database Relationships Explained by @bodeokunfolami at https://pythoneer.dev/database-relationships-explained/">
+  <img src="/theme/twitter.png" width="45px" alt="share button">
+</a>
+     </div>
+  </div>
+
+  <footer class="footer pb-0">
+    <div class="container">
+      <div class="card mb-4">
+        <div class="card-body">
+          <form action="https://pythoneer.dev/sendy/subscribe" method="post" accept-charset="utf-8">
+            <label for="newsletter" class="form-label fs-4">Want to learn python? 💻</label>
+            <p class="text-muted">
+             Helpful python tips directly in your inbox 🔥
+            </p>
+            <div class="mb-3">
+              <input type="email" class="form-control" name="email" placeholder="Email Address">
+            </div>
+            <input type="hidden" name="list" value="Bb5KQVaGFx1fw0h6N4tWbw"/>
+	          <input type="hidden" name="subform" value="yes"/>
+            <button type="submit" class="btn btn-success btn-lg">Subscribe</button>
+          </form>
+        </div>
+      </div>
+    </div>
+<div class="d-flex justify-content-center">
+  <ul class="text-center list-unstyled">
+    <li class="d-inline">
+      <a href="https://www.twitter.com/bodeokunfolami" target="_blank">Twitter</a>
+    </li>
+    <span>&middot;</span>
+    <li class="d-inline">
+      <a href="https://www.github.com/bodeokunfolami" target="_blank">Github</a>
+    </li>
+    <span>&middot;</span>
+    <li class="d-inline">
+      <a href="https://www.linkedin.com/in/bode-okunfolami-04156419a/" target="_blank">Linkedin</a>
+    </li>
+    <span>&middot;</span>
+    <li class="d-inline">
+      <a href="https://www.youtube.com/@PythoneerAcademy" target="_blank">Youtube</a>
+    </li>
+  </ul>
+</div>
+<div class="d-flex justify-content-center bg-white p-2">
+  <span>2022 &copy; <a class="text-primary text-decoration-none" href="https://pythoneer.dev">Pythoneer</a></span>
+</div>  </footer>
+
+  <script type="text/javascript" src="/theme/main.js" crossorigin="anonymous"></script>
+</body>
+
+</html>

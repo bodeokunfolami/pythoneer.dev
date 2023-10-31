@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-805TK7MTRE"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-805TK7MTRE');
+</script>
+
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <title> Understanding Variables and Data Types in Python | Pythoneer </title>
+  <link rel="canonical" href="/understanding-variables-and-data-types-in-python/index.html">
+
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180">
+    <link rel="icon" type="image/png" href="/theme/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="/theme/favicon-16x16.png" sizes="16x16">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#333333">
+
+  <link rel="stylesheet" href="/theme/style.css">
+  <link rel="stylesheet" href="/theme/theme.css">
+  <link rel="stylesheet" href="/theme/oldstyle.css">
+
+ 
+<meta name="description" content="Python is a general purpose, interpreted computer programing language. Programs written in python have zero compile time because the code are executed or interpreted at the program runtime. When you install python on your computer it comes with a software called the python interpreter. The python interpreter runs python code …" />
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@bodeokunfolami" />
+<meta name="twitter:creator" content="@bodeokunfolami" />
+<meta property="og:url" content="/understanding-variables-and-data-types-in-python/index.html" />
+<meta property="og:title" content="Understanding Variables and Data Types in Python" />
+<meta property="og:description" content="Python is a general purpose, interpreted computer programing language. Programs written in python have zero compile time because the code are executed or interpreted at the program runtime. When you install python on your computer it comes with a software called the python interpreter. The python interpreter runs python code …" />
+<meta property="og:image" content="/theme/ogimage.png" />
+<meta name="twitter:card" content="summary_large_image">
+
+
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg navbar-white bg-white">
+    <div class="container">
+      <div class="navbar-brand">
+        <a href="/" class="text-decoration-none">
+          <img width="80px" src="/theme/pythoneer-dev.png" alt="Pythoneer">
+        </a>  
+      </div>
+      <div class="collapse navbar-collapse">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a href="/pages/about/" class="nav-link">About</a>
+          </li>
+          <li class="nav-item">
+            <a href="/pages/contact/" class="nav-link">Contact</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <header class="header">
+    <div class="container h-100">
+      <div class="row align-items-center h-100">
+        <div class="col-sm-10">
+<span class="d-block text-uppercase fs-5 text-white">Fri 14 October 2022</span>
+<h1 class="display-2">Understanding Variables and Data Types in Python</h1>
+<div class="d-flex justify-content-center">
+</div>
+        </div>
+    </div>
+  </div>
+</header>
+
+  <div class="main">
+    <div class="container">
+      <span class="text-muted text-uppercase"></span>
+      <h1 class="display-4 mt-3"></h1>
+      <div class="mb-md-4 mb-3"></div>
+<article class="article">
+  <div class="content">
+    <p>Python is a general purpose, interpreted computer programing language. Programs written in python have zero compile time because the code are executed or interpreted at the program runtime. When you install python on your computer it comes with a software called the python interpreter. The python interpreter runs python code like a command line interface. We can write python code in a python interpreter and it would run the code.</p>
+<pre><code class="language-python">&gt;&gt;&gt; 5
+5
+&gt;&gt;&gt; "Ade"
+'Ade'
+</code></pre>
+<p>The interpreter takes a value 5 and 'Ade' and returns them back without throwing any errors signifying that the code is correct and it was executed. Yes, <code>5</code> is a value and <code>'Ade'</code> is also a python value. A value in python is a useful information that the interpreter understands. Writing out the values literally make them useful just once. But most of the time, when writing code we often want to make use of values that we previously declared at later points in our code. This is where variables comes in.</p>
+<p>A variable is a location in memory that stores a value. variables associates a name to a memory address where the value is stored. In python we assign variables with the assignment operator <code>=</code>. The left side of the operator is the name of the variable and the right side of it is it's value. Lets look at our example again.</p>
+<pre><code class="language-python">&gt;&gt;&gt; num = 5 # assign the value 5 to the variable num
+&gt;&gt;&gt; num # get the value of the num variable
+5
+&gt;&gt;&gt; name = 'Ade' # assign the value 'Ade' to the variable name
+&gt;&gt;&gt; name # get the value of the name variable
+'Ade'
+</code></pre>
+<p>There are some rules to follow when naming variables, they are:</p>
+<ol>
+<li>You must not use any of python reserved keyword to name a variable.</li>
+<li>Variables in python cannot start with a number but may contain it.</li>
+<li>Variables must not contain special character except for underscore.</li>
+<li>Variables are case-sensitive (ball, Ball, BALL are different).</li>
+</ol>
+<p>The interpreter will not just accept any kind of value you type in it, The class of data that can be input to the interpreter is known as data type. There are four primitive data types in python which are:</p>
+<ol>
+<li>String</li>
+<li>Integer</li>
+<li>Boolean</li>
+<li>Float</li>
+</ol>
+<p>These are the four basic data types in python. All values in python are one of these for types.</p>
+<h3 class="my-3 my-md-4">String</h3>
+<p>A string is a sequence of letters, numbers or special characters contained in a single or double quote. the string type support different kinds of operations which falls under the topic of string manipulation. The string type is immutable, that means that once created it cannot be modified. In the example above <code>name = 'Ade'</code> is a string type. Lets look at one more.</p>
+<pre><code class="language-python">text = 'my name John and I am 13 years old'
+type(text) # &lt;class 'str'&gt;
+</code></pre>
+<p>Even though that looks like an integer because it has quotes python will always read it as a string.</p>
+<h3 class="my-3 my-md-4">Integer</h3>
+<p>An integer includes all numbers on a number line, which are all positive and negative whole numbers. Integers support the four arithmetic operations which include addition, subtraction, multiplication and division. It also support the power operation (**) and the modulus operation (%).</p>
+<pre><code class="language-python">type(1000) # &lt;class 'int'&gt;
+</code></pre>
+<h3 class="my-3 my-md-4">Float</h3>
+<p>The float type support all the operations an integer support, the only difference is that they are fractional numbers. The are a separate types because the computer perform mathematical operations on them differently.</p>
+<pre><code class="language-python">type(165.35) # &lt;class 'float'&gt;
+</code></pre>
+<h3 class="my-3 my-md-4">Boolean</h3>
+<p>The boolean data type represents one of two value, <code>True</code> or <code>False</code>. The result of a comparison operation is a boolean value.</p>
+<pre><code class="language-python">type(True) # &lt;class 'bool'&gt;
+type(False) # &lt;class 'bool'&gt;
+</code></pre>
+<p>The different types support different operations. When you try to perform an integer operation on a string it will raise a <em>TypeError</em>. It is important to know the different types and how to rightly use them in your code. A <em>NameError</em> occurs when you try to type a value that does not belong to any of the four data types above.</p>
+<pre><code class="language-python">&gt;&gt;&gt; hello
+Traceback (most recent call last):
+File "&lt;stdin&gt;", line 1, in &lt;module&gt;
+NameError: name 'hello' is not defined. Did you mean: 'help'?
+</code></pre>
+<p>Apart from the four primitive types there are other data types. The primitive data types can only store a single value in a variable. The collection data types can store multiple values in a single variable:</p>
+<ol>
+<li>Lists</li>
+<li>Dictionaries</li>
+<li>Set</li>
+<li>Tuple</li>
+</ol>
+<h3 class="my-3 my-md-4">Lists</h3>
+<p>A python list is a sequence of values that can either be any of the four primitive type. A list is created or initialized with square brackets. Items in a list are separated by a comma.</p>
+<pre><code class="language-python">fruits = ['orange', 10, 'banana', 5]
+</code></pre>
+<p>The variable <code>fruits</code> has four items in it. These four items are numbered with index 0 to the length of fruits minus one <code>(len(fruits) - 1)</code>. A list of four items is numbered from 0 to 3. To access any element we make use of the index.</p>
+<pre><code class="language-python">&gt;&gt;&gt; fruits[0] # get the first element using index 0
+'orange'
+&gt;&gt;&gt; fruits[3] # get the last element with index 3
+5
+</code></pre>
+<h3 class="my-3 my-md-4">Dictionaries</h3>
+<p>Dictionaries store items in key-value pairs. Like a list you can store multiple values in a python dictionary. Values have keys that are used to access them later on. The keys are similar indexes in lists, the only differences is they are created by the programmer and they can be any of python primitive types.</p>
+<pre><code class="language-python">person = {
+    'name': 'Olamilekan',
+    'age': 23,
+    'date_of_birth': '1999-05-20'
+}
+</code></pre>
+<p>The keys in the dictionary are on the left side of the colon (:) while the values are on the right side. The key is used to get a value just the way index is used to get an item in a list.</p>
+<pre><code class="language-python">&gt;&gt;&gt; person['name']
+'Olamilekan'
+&gt;&gt;&gt; person['age']
+23
+&gt;&gt;&gt; person['date_of_birth']
+'1999-05-20'
+</code></pre>
+<h3 class="my-3 my-md-4">Tuple</h3>
+<p>A tuple is a list that cannot be modified. A tuple is created using brackets instead of square brackets like lists. A tuple is immutable. The values in it cannot be changed.</p>
+<pre><code class="language-python">friuts = ('apple', 20, 'orange')
+</code></pre>
+<p>Python will raise a <em>TypeError</em> when you attempt to change a tuple value. This does not occur in dictionaries and list.</p>
+<pre><code class="language-python">&gt;&gt;&gt; fruits[0] = 'banana'
+Traceback (most recent call last):
+    File "&lt;stdin&gt;", line 1, in &lt;module&gt;
+TypeError: 'tuple' object does not support item assignment
+&gt;&gt;&gt;
+</code></pre>
+<h3 class="my-3 my-md-4">Set</h3>
+<p>A python set is a list of items that cannot not be changed. Items in a set are not the same. Items can be removed from a set and added to the set but the item itself cannot be changed. A set is initialized with curly braces.</p>
+<pre><code class="language-python">fruits = {'apple', 'banana', 'orange'}
+fruits.pop() # remove the first item from the set
+fruits # ['banana', 'orange']
+</code></pre>
+<p>These are all the data types in python. Understanding the class of data in python and the operations they support will give you a deeper understanding of python programing language.</p>   </div>
+</article>
+<ul class="list-unstyled">
+  <li class="d-inline">
+    <a href="/tag/python.html" class="badge text-bg-success text-decoration-none">python</a>
+  </li>
+</ul>
+<hr>
+<div class="mb-3">Share this:</div>
+<a target="_blank" href="https://twitter.com/intent/tweet?text=Understanding Variables and Data Types in Python by @bodeokunfolami at https://pythoneer.dev/understanding-variables-and-data-types-in-python/">
+  <img src="/theme/twitter.png" width="45px" alt="share button">
+</a>
+     </div>
+  </div>
+
+  <footer class="footer pb-0">
+    <div class="container">
+      <div class="card mb-4">
+        <div class="card-body">
+          <form action="https://pythoneer.dev/sendy/subscribe" method="post" accept-charset="utf-8">
+            <label for="newsletter" class="form-label fs-4">Want to learn python? 💻</label>
+            <p class="text-muted">
+             Helpful python tips directly in your inbox 🔥
+            </p>
+            <div class="mb-3">
+              <input type="email" class="form-control" name="email" placeholder="Email Address">
+            </div>
+            <input type="hidden" name="list" value="Bb5KQVaGFx1fw0h6N4tWbw"/>
+	          <input type="hidden" name="subform" value="yes"/>
+            <button type="submit" class="btn btn-success btn-lg">Subscribe</button>
+          </form>
+        </div>
+      </div>
+    </div>
+<div class="d-flex justify-content-center">
+  <ul class="text-center list-unstyled">
+    <li class="d-inline">
+      <a href="https://www.twitter.com/bodeokunfolami" target="_blank">Twitter</a>
+    </li>
+    <span>&middot;</span>
+    <li class="d-inline">
+      <a href="https://www.github.com/bodeokunfolami" target="_blank">Github</a>
+    </li>
+    <span>&middot;</span>
+    <li class="d-inline">
+      <a href="https://www.linkedin.com/in/bode-okunfolami-04156419a/" target="_blank">Linkedin</a>
+    </li>
+    <span>&middot;</span>
+    <li class="d-inline">
+      <a href="https://www.youtube.com/@PythoneerAcademy" target="_blank">Youtube</a>
+    </li>
+  </ul>
+</div>
+<div class="d-flex justify-content-center bg-white p-2">
+  <span>2022 &copy; <a class="text-primary text-decoration-none" href="https://pythoneer.dev">Pythoneer</a></span>
+</div>  </footer>
+
+  <script type="text/javascript" src="/theme/main.js" crossorigin="anonymous"></script>
+</body>
+
+</html>

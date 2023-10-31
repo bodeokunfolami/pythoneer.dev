@@ -1,0 +1,269 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-805TK7MTRE"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-805TK7MTRE');
+</script>
+
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <title> Back-end Development: Flask vs Django | Pythoneer </title>
+  <link rel="canonical" href="/back-end-development-flask-vs-django/index.html">
+
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180">
+    <link rel="icon" type="image/png" href="/theme/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="/theme/favicon-16x16.png" sizes="16x16">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#333333">
+
+  <link rel="stylesheet" href="/theme/style.css">
+  <link rel="stylesheet" href="/theme/theme.css">
+  <link rel="stylesheet" href="/theme/oldstyle.css">
+
+ 
+<meta name="description" content="What is a server? A server is a computer in any location on the planet that provides computational logic and operations remotely to multiple devices. What is back-end development? This is the process of developing software handles data of a web application. Without the back-end a website is just static …" />
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@bodeokunfolami" />
+<meta name="twitter:creator" content="@bodeokunfolami" />
+<meta property="og:url" content="/back-end-development-flask-vs-django/index.html" />
+<meta property="og:title" content="Back-end Development: Flask vs Django" />
+<meta property="og:description" content="What is a server? A server is a computer in any location on the planet that provides computational logic and operations remotely to multiple devices. What is back-end development? This is the process of developing software handles data of a web application. Without the back-end a website is just static …" />
+<meta property="og:image" content="/theme/ogimage.png" />
+<meta name="twitter:card" content="summary_large_image">
+
+
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg navbar-white bg-white">
+    <div class="container">
+      <div class="navbar-brand">
+        <a href="/" class="text-decoration-none">
+          <img width="80px" src="/theme/pythoneer-dev.png" alt="Pythoneer">
+        </a>  
+      </div>
+      <div class="collapse navbar-collapse">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a href="/pages/about/" class="nav-link">About</a>
+          </li>
+          <li class="nav-item">
+            <a href="/pages/contact/" class="nav-link">Contact</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <header class="header">
+    <div class="container h-100">
+      <div class="row align-items-center h-100">
+        <div class="col-sm-10">
+<span class="d-block text-uppercase fs-5 text-white">Wed 12 October 2022</span>
+<h1 class="display-2">Back-end Development: Flask vs Django</h1>
+<div class="d-flex justify-content-center">
+</div>
+        </div>
+    </div>
+  </div>
+</header>
+
+  <div class="main">
+    <div class="container">
+      <span class="text-muted text-uppercase"></span>
+      <h1 class="display-4 mt-3"></h1>
+      <div class="mb-md-4 mb-3"></div>
+<article class="article">
+  <div class="content">
+    <h3 class="my-3 my-md-4">What is a server?</h3>
+<p>A server is a computer in any location on the planet that provides computational logic and operations remotely to multiple devices.</p>
+<h3 class="my-3 my-md-4">What is back-end development?</h3>
+<p>This is the process of developing software handles data of a web application. Without the back-end a website is just static HTML and CSS. Think of a website back-end as instructions or code that determines how data is rendered in the browser in the form of markup.The back-end contains the logic for processing data gotten interacting with website. Back-end development is also known as server-side programming. The back-end of a website is the reason why you can make a post on facebook, order an item from an e-commerce website etc. The back-end interacts with a database to store data from a website.</p>
+<p>There are different server-side programming languages such as Python, Javascript (Nodejs), Ruby, Go etc. These languages can be used to build web application. Python is one of the best languages for web development, because of its simple syntax that almost resembles plain english. Despite it's simplicity it is a very powerful language.</p>
+<h3 class="my-3 my-md-4">What is a Web Framework?</h3>
+<p>A web framework is a software that makes building websites easy. Python has many web frameworks but in this tutorial we will be looking at two of the most popular.</p>
+<p>There are two main frameworks used in python for building web applications. The first is Django and the second Flask. Django is a robust framework with many features while flask can be considered as a micro framework. Django has a pre-determined structure and pattern of writing web apps and flask makes it very simple to get a web application up and running.</p>
+<h3 class="my-3 my-md-4">The Django Web Framework</h3>
+<p>With django you can build applications that are robust and secure, it's structure makes it easy to build scalable web apps. Django is what we call a full-stack framework, it is structured into the Model-View-Template architecture. Models determines data structure. The model through the object relation mapper (ORM) let you query database tables in python instead of raw SQL. The view handle the logic of the web application like payment processing, user login/logout etc. before the html is generated with the templates and sent to the client side. Django makes it very easy to work with html forms via django forms. Django comes with is own template engine, django templates used for generating web pages.</p>
+<p>To start a new django project</p>
+<ol>
+<li>Install django with python package manager (pip)</li>
+<li>Start a new django project</li>
+</ol>
+<p>Install django with pip</p>
+<pre><code class="language-bash">$ pip install django
+</code></pre>
+<p>Create a django project</p>
+<pre><code class="language-bash">$ django-admin startproject django_project
+</code></pre>
+<p>The folder structure for a new django project</p>
+<pre><code class="language-treeview">django_project/
+|-- django_project/
+|   |-- __init__.py
+|   |-- settings.py
+|   |-- urls.py
+|   `-- wsgi.py
+`-- manage.py
+</code></pre>
+<p>Django comes with a command line utility, <em>manage.py</em> for managing a django project. with it you can start and stop the django development server.</p>
+<h4>settings</h4>
+<p>This is were all the configuration of our django application is written. In settings we have our database config, template config, debug mode etc.</p>
+<h4>urls</h4>
+<p>This is our project root url configurations. this is were we add routes to our django app. Django comes with a default url path <code>'admin/'</code> for django administration.</p>
+<pre><code class="language-python">from django.urls import path
+from django.contrib import admin
+from myapp.views import index_view
+
+urlpatterns = [
+    path('admin/', admin.site.urls), # https://example.com/admin/
+    path('', index_view) # website home https://example.com
+]
+</code></pre>
+<h4>wsgi</h4>
+<p>This is the file responsible for deployment of our django application. The wsgi file is the entry point to a django application used by web servers.</p>
+<p>A django project is sectioned into apps. Apps in django represent modular parts of a django project. For example you can have an app for authentication, and another for blog etc.</p>
+<p>A django project structure with app <em>myapp</em></p>
+<pre><code class="language-treeview">django_project/
+|-- django_project/
+|   |-- settings.py
+|   |-- urls.py
+|   |-- wsgi.py
+|   `-- __init__.py
+|-- myapp/
+|   |-- migrations/
+|   |-- admin.py
+|   |-- tests.py
+|   |-- apps.py
+|   |-- models.py
+|   |-- views.py
+|   `-- __init__.py
+`-- manage.py
+</code></pre>
+<h4>migrations</h4>
+<p>Migrations are changes made to a database.The migration folder contains all database migrations. migrations keep track of changes made in a database. changes made to a database can easily be reverted back if the application encounter challenges due to any reason.</p>
+<h4>admin</h4>
+<p>Django has a default admin website for managing a website content. We register our models that we want to access in the admin in the <code>admin.py</code> file.</p>
+<h4>tests</h4>
+<p>Every good software is often well tested. Django support test-driven development based on python's built-in unit testing library. We write tests inside of the <code>tests.py</code>.</p>
+<h4>models</h4>
+<p>Models are python objects that represents a database schema. For example you can have a database table 'books' with columns 'title' and 'description'. A web app's data is managed using models. Every database table must have a primary key column, django understands this and auto creates a primary key column for model.</p>
+<p>An example of a django model</p>
+<pre><code class="language-python">from django import models
+
+class Book(models.Model):
+    class Meta:
+        db_table = 'books' # table name
+
+    title = models.CharField(max_length=255) # column 1
+    description = models.TextField() # column 2
+
+    def __str__(self):
+        return self.title
+</code></pre>
+<h4>views</h4>
+<p>This is where our application logic lives. Some other programming language may call this file a controller. The view handles request and perform operations based on the data it receives.A django view is an interface between the database and templates. An example of a simple django view</p>
+<pre><code class="language-python">from django.shortcuts import render
+from django.http import HttpResponse
+
+def index_view(request):
+    return HttpResponse('Hello, Django') # shows 'Hello, Django' in browser
+</code></pre>
+<h3 class="my-3 my-md-4">Flask Web Framework</h3>
+<p>Flask is a micro framework which has a small and easy to extend core. It is easy to learn and use and it is "beginner-friendly" because it does not have boilerplate code or dependencies like other frameworks. Flask uses jinja2 for rendering templates. Flask was initially created as an April Fool's joke, but it became very popular quickly and it is still actively maintained today. We can quickly create a flask web application in a single python file 'app.py'</p>
+<blockquote class="custom-blockquote">
+<p>Flask does connect to databases by default you have to install packages for connecting to a database server.</p>
+</blockquote>
+<p>An example of a flask web application.</p>
+<pre><code class="language-python">from flask import Flask
+
+app = Flask(__name__) # create app
+
+@app.route('/') # register route
+def index():
+    return 'Hello, Flask' # shows 'Hello, Flask' in browser
+
+if __name__ == '__main__':
+    app.run(debug=True) # run the development server
+</code></pre>
+<p>With just a few lines of code we have a flask app. This feels a lot easier than django and its boilerplate code. In flask there is no pre defined project structure, you can structure your project how you want. It is a framework that is extremely flexible.</p>
+<h3 class="my-3 my-md-4">Conclusion</h3>
+<p>Django and Flask are both excellent choices for your next project, but if you want to build a small project thats does not require much or you just want to have the flexibility of building web apps however you like then flask might be the best option. On the other hand, Django's learning curve may be steep but once learnt the possibilities are endless because of its rich library of tools that help build large web application in a short period of time.</p>   </div>
+</article>
+<ul class="list-unstyled">
+  <li class="d-inline">
+    <a href="/tag/python.html" class="badge text-bg-success text-decoration-none">python</a>
+  </li>
+  <li class="d-inline">
+    <a href="/tag/web-development.html" class="badge text-bg-success text-decoration-none">web development</a>
+  </li>
+  <li class="d-inline">
+    <a href="/tag/flask.html" class="badge text-bg-success text-decoration-none">flask</a>
+  </li>
+  <li class="d-inline">
+    <a href="/tag/django.html" class="badge text-bg-success text-decoration-none">django</a>
+  </li>
+</ul>
+<hr>
+<div class="mb-3">Share this:</div>
+<a target="_blank" href="https://twitter.com/intent/tweet?text=Back-end Development: Flask vs Django by @bodeokunfolami at https://pythoneer.dev/back-end-development-flask-vs-django/">
+  <img src="/theme/twitter.png" width="45px" alt="share button">
+</a>
+     </div>
+  </div>
+
+  <footer class="footer pb-0">
+    <div class="container">
+      <div class="card mb-4">
+        <div class="card-body">
+          <form action="https://pythoneer.dev/sendy/subscribe" method="post" accept-charset="utf-8">
+            <label for="newsletter" class="form-label fs-4">Want to learn python? 💻</label>
+            <p class="text-muted">
+             Helpful python tips directly in your inbox 🔥
+            </p>
+            <div class="mb-3">
+              <input type="email" class="form-control" name="email" placeholder="Email Address">
+            </div>
+            <input type="hidden" name="list" value="Bb5KQVaGFx1fw0h6N4tWbw"/>
+	          <input type="hidden" name="subform" value="yes"/>
+            <button type="submit" class="btn btn-success btn-lg">Subscribe</button>
+          </form>
+        </div>
+      </div>
+    </div>
+<div class="d-flex justify-content-center">
+  <ul class="text-center list-unstyled">
+    <li class="d-inline">
+      <a href="https://www.twitter.com/bodeokunfolami" target="_blank">Twitter</a>
+    </li>
+    <span>&middot;</span>
+    <li class="d-inline">
+      <a href="https://www.github.com/bodeokunfolami" target="_blank">Github</a>
+    </li>
+    <span>&middot;</span>
+    <li class="d-inline">
+      <a href="https://www.linkedin.com/in/bode-okunfolami-04156419a/" target="_blank">Linkedin</a>
+    </li>
+    <span>&middot;</span>
+    <li class="d-inline">
+      <a href="https://www.youtube.com/@PythoneerAcademy" target="_blank">Youtube</a>
+    </li>
+  </ul>
+</div>
+<div class="d-flex justify-content-center bg-white p-2">
+  <span>2022 &copy; <a class="text-primary text-decoration-none" href="https://pythoneer.dev">Pythoneer</a></span>
+</div>  </footer>
+
+  <script type="text/javascript" src="/theme/main.js" crossorigin="anonymous"></script>
+</body>
+
+</html>

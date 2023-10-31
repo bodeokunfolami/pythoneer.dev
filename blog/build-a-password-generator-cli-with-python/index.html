@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-805TK7MTRE"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-805TK7MTRE');
+</script>
+
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <title> Build a Password Generator CLI With Python | Pythoneer </title>
+  <link rel="canonical" href="/build-a-password-generator-cli-with-python/index.html">
+
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180">
+    <link rel="icon" type="image/png" href="/theme/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="/theme/favicon-16x16.png" sizes="16x16">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#333333">
+
+  <link rel="stylesheet" href="/theme/style.css">
+  <link rel="stylesheet" href="/theme/theme.css">
+  <link rel="stylesheet" href="/theme/oldstyle.css">
+
+ 
+<meta name="description" content="To build a password generator command line interface (cli) with python, first create a virtual environment and install click. click is a python package for creating command line utility applications. A command line interface application is a software that is run as a command on terminal or command prompt that …" />
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@bodeokunfolami" />
+<meta name="twitter:creator" content="@bodeokunfolami" />
+<meta property="og:url" content="/build-a-password-generator-cli-with-python/index.html" />
+<meta property="og:title" content="Build a Password Generator CLI With Python" />
+<meta property="og:description" content="To build a password generator command line interface (cli) with python, first create a virtual environment and install click. click is a python package for creating command line utility applications. A command line interface application is a software that is run as a command on terminal or command prompt that …" />
+<meta property="og:image" content="/theme/ogimage.png" />
+<meta name="twitter:card" content="summary_large_image">
+
+
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg navbar-white bg-white">
+    <div class="container">
+      <div class="navbar-brand">
+        <a href="/" class="text-decoration-none">
+          <img width="80px" src="/theme/pythoneer-dev.png" alt="Pythoneer">
+        </a>  
+      </div>
+      <div class="collapse navbar-collapse">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a href="/pages/about/" class="nav-link">About</a>
+          </li>
+          <li class="nav-item">
+            <a href="/pages/contact/" class="nav-link">Contact</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <header class="header">
+    <div class="container h-100">
+      <div class="row align-items-center h-100">
+        <div class="col-sm-10">
+<span class="d-block text-uppercase fs-5 text-white">Fri 25 November 2022</span>
+<h1 class="display-2">Build a Password Generator CLI With Python</h1>
+<div class="d-flex justify-content-center">
+</div>
+        </div>
+    </div>
+  </div>
+</header>
+
+  <div class="main">
+    <div class="container">
+      <span class="text-muted text-uppercase"></span>
+      <h1 class="display-4 mt-3"></h1>
+      <div class="mb-md-4 mb-3"></div>
+<article class="article">
+  <div class="content">
+    <p>To build a password generator command line interface (cli) with python, first create a virtual environment and install click. click is a python package for creating command line utility applications. A command line interface application is a software that is run as a command on terminal or command prompt that performs computer operations.</p>
+<p>Install click package with pip</p>
+<pre><code class="language-bash">$ pip install click
+</code></pre>
+<h3 class="my-3 my-md-4">Command line utility</h3>
+<p>To create the command line interface create a file in your project folder called main.py and type the following code</p>
+<pre><code class="language-python">import click
+
+@click.command()
+@click.argument('name')
+def main(name):
+    click.echo(f'Hello {name}')
+
+if __name__ == '__main__':
+    main()
+</code></pre>
+<p>This code above is a basic usage of click. The two decorators above changes an ordinary python function to command line utility that receives argument and outputs it to console.</p>
+<pre><code class="language-python">@click.command()
+</code></pre>
+<p>The python decorator above turns the function into a command line utility that can be invoked with terminal or command prompt.</p>
+<pre><code class="language-python">@click.argument('name')
+</code></pre>
+<p>The <code>@click.argument</code> decorator takes in a variable <code>name</code> as argument. arguments are values passed when the command is invoked in terminal.</p>
+<pre><code class="language-bash">$ python main.py Ade
+Hello Ade
+</code></pre>
+<p>The argument is 'Ade' which is the name parameter in the main function. The next feature of a command line utility is the ability to pass flags or options. The presence of options in a CLI modify the output of a command. In our <code>main.py</code> rewrite the main function to include the following.</p>
+<pre><code class="language-python">import click
+
+@click.command()
+@click.option('--length', default=8, help='length of password')
+@click.option('--digit/--no-digit', default=False, help='include numbers in password')
+def main(length, digit):
+    click.echo(length)
+    click.echo(digit)
+
+if __name__ == '__main__':
+    main()
+</code></pre>
+<p>Run the program with the option</p>
+<pre><code class="language-bash">$ python main.py --length 10 --digit
+10
+True
+</code></pre>
+<p>This will output 10 and in case the option is not given the default will be used. The second option is a boolean flag that defaults to <code>False</code> if it was not used in the command.</p>
+<pre><code class="language-python">@click.option('--length', default=8, help='length of password')
+</code></pre>
+<p>The above decorator allows the command to be invoked with options. Options are parameters of a cli that can change based on the user input. the decorator takes <em>'--length'</em> as an option, with a default value of 8. The default value is used if the option is not specified in the command line.</p>
+<pre><code class="language-python">@click.option('--digit/--no-digit', default=False, help='include numbers in password')
+</code></pre>
+<p>This is a boolean option or flag to include numbers or exclude them when generating our password.</p>
+<h3 class="my-3 my-md-4">Generating password</h3>
+<p>Now that we have our command line interface working lets create a function to that will generate a random string of characters. in your main.py add</p>
+<pre><code class="language-python">import random
+import string
+import click
+
+def generate_password(length, is_digit):
+    '''This function returns randomly generated string'''
+    seed = string.ascii_letters
+    if is_digit: # if the number flag was raised add numbers to the seed
+        seed += string.digits
+
+    return str('').join([random.choice(seed) for i in range(length)])
+# ...
+</code></pre>
+<p><code>generate_password</code> takes length as an argument and uses it to generate a string of random letters with length of the length variable. To use the function in our cli we just simply call the function passing length as argument.</p>
+<pre><code class="language-python">[random.choice(string.ascii_letters) for i in range(length)]
+</code></pre>
+<p>This is a python list comprehension for generating a list on random ascii letters the size of the length variable.</p>
+<pre><code class="language-python">str('').join([random.choice(string.ascii_letters) for i in range(length)])
+</code></pre>
+<p>The <code>str('').join()</code> method will combine all the letters in the list into a single string that can be used as a password.</p>
+<p>Everything combined together will give:</p>
+<pre><code class="language-python">import random
+import string
+import click
+
+def generate_password(length, is_digit):
+    '''This function returns randomly generated string'''
+    seed = string.ascii_letters
+    if is_digit:
+        seed += string.digits
+    return str('').join([random.choice(seed) for i in range(length)])
+
+@click.command()
+@click.option('--length', default=8, help='length of password')
+@click.option('--digit/--no-digit', default=False, help='include numbers in password')
+def main(length, digit):
+    password = generate_password(length, digit)
+    click.echo(f'Password: {password}')
+
+if __name__ == '__main__':
+    main()
+</code></pre>
+<p>Running the command with the options will give:</p>
+<pre><code class="language-bash">$ python main.py --length 16 --digit
+Password: C6Cdcvbax5nYcc2d
+</code></pre>   </div>
+</article>
+<ul class="list-unstyled">
+  <li class="d-inline">
+    <a href="/tag/python.html" class="badge text-bg-success text-decoration-none">python</a>
+  </li>
+  <li class="d-inline">
+    <a href="/tag/cli.html" class="badge text-bg-success text-decoration-none">cli</a>
+  </li>
+</ul>
+<hr>
+<div class="mb-3">Share this:</div>
+<a target="_blank" href="https://twitter.com/intent/tweet?text=Build a Password Generator CLI With Python by @bodeokunfolami at https://pythoneer.dev/build-a-password-generator-cli-with-python/">
+  <img src="/theme/twitter.png" width="45px" alt="share button">
+</a>
+     </div>
+  </div>
+
+  <footer class="footer pb-0">
+    <div class="container">
+      <div class="card mb-4">
+        <div class="card-body">
+          <form action="https://pythoneer.dev/sendy/subscribe" method="post" accept-charset="utf-8">
+            <label for="newsletter" class="form-label fs-4">Want to learn python? 💻</label>
+            <p class="text-muted">
+             Helpful python tips directly in your inbox 🔥
+            </p>
+            <div class="mb-3">
+              <input type="email" class="form-control" name="email" placeholder="Email Address">
+            </div>
+            <input type="hidden" name="list" value="Bb5KQVaGFx1fw0h6N4tWbw"/>
+	          <input type="hidden" name="subform" value="yes"/>
+            <button type="submit" class="btn btn-success btn-lg">Subscribe</button>
+          </form>
+        </div>
+      </div>
+    </div>
+<div class="d-flex justify-content-center">
+  <ul class="text-center list-unstyled">
+    <li class="d-inline">
+      <a href="https://www.twitter.com/bodeokunfolami" target="_blank">Twitter</a>
+    </li>
+    <span>&middot;</span>
+    <li class="d-inline">
+      <a href="https://www.github.com/bodeokunfolami" target="_blank">Github</a>
+    </li>
+    <span>&middot;</span>
+    <li class="d-inline">
+      <a href="https://www.linkedin.com/in/bode-okunfolami-04156419a/" target="_blank">Linkedin</a>
+    </li>
+    <span>&middot;</span>
+    <li class="d-inline">
+      <a href="https://www.youtube.com/@PythoneerAcademy" target="_blank">Youtube</a>
+    </li>
+  </ul>
+</div>
+<div class="d-flex justify-content-center bg-white p-2">
+  <span>2022 &copy; <a class="text-primary text-decoration-none" href="https://pythoneer.dev">Pythoneer</a></span>
+</div>  </footer>
+
+  <script type="text/javascript" src="/theme/main.js" crossorigin="anonymous"></script>
+</body>
+
+</html>

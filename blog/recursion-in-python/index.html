@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-805TK7MTRE"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-805TK7MTRE');
+</script>
+
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <title> Recursion In Python | Pythoneer </title>
+  <link rel="canonical" href="/recursion-in-python/index.html">
+
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180">
+    <link rel="icon" type="image/png" href="/theme/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="/theme/favicon-16x16.png" sizes="16x16">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#333333">
+
+  <link rel="stylesheet" href="/theme/style.css">
+  <link rel="stylesheet" href="/theme/theme.css">
+  <link rel="stylesheet" href="/theme/oldstyle.css">
+
+ 
+<meta name="description" content="Recursion is a programming strategy used for breaking complex computation problems into small sub-problems that can be solved. The recursion problem is self-referential. The strategy is deployed when a function makes copies of itself to solve sub-problems of a computation. Every recursive function has a base case that allows the …" />
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@bodeokunfolami" />
+<meta name="twitter:creator" content="@bodeokunfolami" />
+<meta property="og:url" content="/recursion-in-python/index.html" />
+<meta property="og:title" content="Recursion In Python" />
+<meta property="og:description" content="Recursion is a programming strategy used for breaking complex computation problems into small sub-problems that can be solved. The recursion problem is self-referential. The strategy is deployed when a function makes copies of itself to solve sub-problems of a computation. Every recursive function has a base case that allows the …" />
+<meta property="og:image" content="/theme/ogimage.png" />
+<meta name="twitter:card" content="summary_large_image">
+
+
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg navbar-white bg-white">
+    <div class="container">
+      <div class="navbar-brand">
+        <a href="/" class="text-decoration-none">
+          <img width="80px" src="/theme/pythoneer-dev.png" alt="Pythoneer">
+        </a>  
+      </div>
+      <div class="collapse navbar-collapse">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a href="/pages/about/" class="nav-link">About</a>
+          </li>
+          <li class="nav-item">
+            <a href="/pages/contact/" class="nav-link">Contact</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <header class="header">
+    <div class="container h-100">
+      <div class="row align-items-center h-100">
+        <div class="col-sm-10">
+<span class="d-block text-uppercase fs-5 text-white">Mon 16 January 2023</span>
+<h1 class="display-2">Recursion In Python</h1>
+<div class="d-flex justify-content-center">
+</div>
+        </div>
+    </div>
+  </div>
+</header>
+
+  <div class="main">
+    <div class="container">
+      <span class="text-muted text-uppercase"></span>
+      <h1 class="display-4 mt-3"></h1>
+      <div class="mb-md-4 mb-3"></div>
+<article class="article">
+  <div class="content">
+    <p>Recursion is a programming strategy used for breaking complex computation problems into small sub-problems that can be solved. The recursion problem is self-referential. The strategy is deployed when a function makes copies of itself to solve sub-problems of a computation. Every recursive function has a <em>base case</em> that allows the recursion to end peacefully.</p>
+<p><center>
+<img alt="img" class="my-3 img-fluid shadow my-md-4" src="/images/recursion.png"/>
+</center></p>
+<p>The recursive call will keep creating copies of <code>func()</code> which consequently will keep printing "recurse" for eternity 😀, no am just kidding till your computer runs out of memory. But python has a maximum recursion dept that the recursion call will be terminated once the threshold has been reached.</p>
+<p><center>
+<img alt="img-recursion-error" class="my-3 img-fluid shadow my-md-4" src="/images/recursion-error.png"/>
+<center></center></center></p>
+<p>You can get the limit using the sys module's <code>getrecursionlimit()</code> function.</p>
+<pre><code class="language-python">import sys
+sys.getrecursionlimit() # 1000
+</code></pre>
+<p>If the default recursion limit is not good enough for you, you can increase it using the <code>setrecursionlimit()</code></p>
+<pre><code class="language-python">sys.setrecursionlimit(2000)
+</code></pre>
+<blockquote class="custom-blockquote">
+<p>It is recommended that you do not temper with the recursion limit as the default is more than enough for most of your use cases</p>
+</blockquote>
+<h3 class="my-3 my-md-4">How to Exit A Recursion</h3>
+<p>To exit a recursion you must specify a base case that once met the recursion will end.</p>
+<pre><code class="language-python">def func(n=0):
+  if n == 5: return # base case
+  print('recurse')
+  func(n + 1)
+</code></pre>
+<p>We are using the positional argument <code>n=0</code> to track the recursion calls, once the base case, <code>n == 5</code> has been met, the function will return. Note that the base condition will not be met if you don't increment <code>n</code> by 1 in the recursive call. The recursion will only print 'recurse' five times because of the base case.</p>
+<h3 class="my-3 my-md-4">Using Recursion In Python</h3>
+<p>Let's check if a word is a palindrome. A palindrome is a word that reads the same backward, for example, racecar.</p>
+<pre><code class="language-python">def palindrome(word):
+    last_index = len(word) - 1
+    if len(word) &lt;= 1: # base case
+        return True
+    if word[0] != word[last_index]: # base case
+        return False 
+    return palindrome(word[1:last_index])
+palindrome('racecar') # True
+</code></pre>
+<p>We have two base cases for when the word is a palindrome and when it is not. The recursion works by removing the first and last characters and then checking if the current first and last characters are the same until there is only one character, then the function will return True or if the characters don't match it will return False.</p>
+<p><center>
+<img alt="img-palindrome" class="my-3 img-fluid shadow my-md-4" src="/images/palindrome.png"/>
+<center></center></center></p>
+<p>Another common recursion problem is factorial. A factorial is the product of all numbers less than or equal to the given number.</p>
+<p><center>
+<img alt="img-factorial" class="my-3 img-fluid shadow my-md-4" src="/images/factorial.png"/>
+<center></center></center></p>
+<p>We can use recursion to solve for the factorial of any given number in python.</p>
+<pre><code class="language-python">def factorial(n):
+  if n == 0:
+    return 1
+  return n * factorial(n - 1)
+
+factorial(4) # 24
+</code></pre>
+<p>the number n will be multiplied by its referenced self until the base condition has been reached <code>n == 0</code></p>
+<p><center>
+<img alt="img-factorial" class="my-3 img-fluid shadow my-md-4" src="/images/factorial-1.png"/>
+<center></center></center></p>
+<h3 class="my-3 my-md-4">Recursion vs. Iteration</h3>
+<p>Almost any recursive problem can be solved iteratively but recursions are generally simpler and more concise. The trade-off for simple recursive functions is that they consume more memory as the computer keeps track of all the copies of the function created.</p>   </div>
+</article>
+<ul class="list-unstyled">
+  <li class="d-inline">
+    <a href="/tag/python.html" class="badge text-bg-success text-decoration-none">python</a>
+  </li>
+  <li class="d-inline">
+    <a href="/tag/recursion.html" class="badge text-bg-success text-decoration-none">recursion</a>
+  </li>
+</ul>
+<hr>
+<div class="mb-3">Share this:</div>
+<a target="_blank" href="https://twitter.com/intent/tweet?text=Recursion In Python by @bodeokunfolami at https://pythoneer.dev/recursion-in-python/">
+  <img src="/theme/twitter.png" width="45px" alt="share button">
+</a>
+     </div>
+  </div>
+
+  <footer class="footer pb-0">
+    <div class="container">
+      <div class="card mb-4">
+        <div class="card-body">
+          <form action="https://pythoneer.dev/sendy/subscribe" method="post" accept-charset="utf-8">
+            <label for="newsletter" class="form-label fs-4">Want to learn python? 💻</label>
+            <p class="text-muted">
+             Helpful python tips directly in your inbox 🔥
+            </p>
+            <div class="mb-3">
+              <input type="email" class="form-control" name="email" placeholder="Email Address">
+            </div>
+            <input type="hidden" name="list" value="Bb5KQVaGFx1fw0h6N4tWbw"/>
+	          <input type="hidden" name="subform" value="yes"/>
+            <button type="submit" class="btn btn-success btn-lg">Subscribe</button>
+          </form>
+        </div>
+      </div>
+    </div>
+<div class="d-flex justify-content-center">
+  <ul class="text-center list-unstyled">
+    <li class="d-inline">
+      <a href="https://www.twitter.com/bodeokunfolami" target="_blank">Twitter</a>
+    </li>
+    <span>&middot;</span>
+    <li class="d-inline">
+      <a href="https://www.github.com/bodeokunfolami" target="_blank">Github</a>
+    </li>
+    <span>&middot;</span>
+    <li class="d-inline">
+      <a href="https://www.linkedin.com/in/bode-okunfolami-04156419a/" target="_blank">Linkedin</a>
+    </li>
+    <span>&middot;</span>
+    <li class="d-inline">
+      <a href="https://www.youtube.com/@PythoneerAcademy" target="_blank">Youtube</a>
+    </li>
+  </ul>
+</div>
+<div class="d-flex justify-content-center bg-white p-2">
+  <span>2022 &copy; <a class="text-primary text-decoration-none" href="https://pythoneer.dev">Pythoneer</a></span>
+</div>  </footer>
+
+  <script type="text/javascript" src="/theme/main.js" crossorigin="anonymous"></script>
+</body>
+
+</html>

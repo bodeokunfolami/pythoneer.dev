@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+<!-- prettier-ignore -->
+{% block head %} {{ super() }}
+<meta name="description" content="{{ article.summary|striptags }}" />
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@bodeokunfolami" />
+<meta name="twitter:creator" content="@bodeokunfolami" />
+<meta property="og:url" content="{{ SITEURL }}/{{ output_file }}" />
+<meta property="og:title" content="{{ article.title }}" />
+<meta property="og:description" content="{{ article.summary|striptags }}" />
+<meta property="og:image" content="{{ SITEURL }}/theme/ogimage.png" />
+<meta name="twitter:card" content="summary_large_image">
+{% endblock %}
+
+{% block page_title %}
+<span class="d-block text-uppercase fs-5 text-white">{{ article.locale_date }}</span>
+<h1 class="display-2">{{ article.title }}</h1>
+<div class="d-flex justify-content-center">
+</div>
+{% endblock page_title %}
+
+<!-- prettier-ignore -->
+{% block title %} {{ article.title|striptags }} {{ super() }} {%
+endblock %} 
+
+
+
+<!-- prettuer-ignore -->
+{% block content %}
+<article class="article">
+  <div class="content">
+    {{ article.content }} {% if article.link %}
+    <p class="link-button">
+      <a href="{{ article.link }}" rel="bookmark">
+        <i class="fas fa-link"></i>
+        view link
+      </a>
+    </p>
+    {% endif %}
+  </div>
+</article>
+<ul class="list-unstyled">
+{% for tag in article.tags %}
+  <li class="d-inline">
+    <a href="{{ SITEURL }}/{{ tag.url}}" class="badge text-bg-success text-decoration-none">{{ tag }}</a>
+  </li>
+{% endfor %}
+</ul>
+<hr>
+<div class="mb-3">Share this:</div>
+{% set slice = output_file|length - output_file.index('/index.html') %}
+<a target="_blank" href="https://twitter.com/intent/tweet?text={{ article.title }} by @bodeokunfolami at https://pythoneer.dev/{{ output_file[:-slice] }}/">
+  <img src="{{ SITEURL }}/theme/twitter.png" width="45px" alt="share button">
+</a>
+{% include 'include/comments.html' %} {% endblock %}

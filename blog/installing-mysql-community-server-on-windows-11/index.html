@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-805TK7MTRE"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-805TK7MTRE');
+</script>
+
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <title> Installing MySQL Community Server on Windows 11 | Pythoneer </title>
+  <link rel="canonical" href="/installing-mysql-community-server-on-windows-11/index.html">
+
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180">
+    <link rel="icon" type="image/png" href="/theme/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="/theme/favicon-16x16.png" sizes="16x16">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#333333">
+
+  <link rel="stylesheet" href="/theme/style.css">
+  <link rel="stylesheet" href="/theme/theme.css">
+  <link rel="stylesheet" href="/theme/oldstyle.css">
+
+ 
+<meta name="description" content="MySQL is a relational database management system (RDBMS). Relational databases are the most widely used databases today. They store data in tables which consist of rows and columns. MySQL is a popular relational database amongst others, and in this article i will show you how to install mysql on windows …" />
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@bodeokunfolami" />
+<meta name="twitter:creator" content="@bodeokunfolami" />
+<meta property="og:url" content="/installing-mysql-community-server-on-windows-11/index.html" />
+<meta property="og:title" content="Installing MySQL Community Server on Windows 11" />
+<meta property="og:description" content="MySQL is a relational database management system (RDBMS). Relational databases are the most widely used databases today. They store data in tables which consist of rows and columns. MySQL is a popular relational database amongst others, and in this article i will show you how to install mysql on windows …" />
+<meta property="og:image" content="/theme/ogimage.png" />
+<meta name="twitter:card" content="summary_large_image">
+
+
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg navbar-white bg-white">
+    <div class="container">
+      <div class="navbar-brand">
+        <a href="/" class="text-decoration-none">
+          <img width="80px" src="/theme/pythoneer-dev.png" alt="Pythoneer">
+        </a>  
+      </div>
+      <div class="collapse navbar-collapse">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a href="/pages/about/" class="nav-link">About</a>
+          </li>
+          <li class="nav-item">
+            <a href="/pages/contact/" class="nav-link">Contact</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <header class="header">
+    <div class="container h-100">
+      <div class="row align-items-center h-100">
+        <div class="col-sm-10">
+<span class="d-block text-uppercase fs-5 text-white">Thu 30 March 2023</span>
+<h1 class="display-2">Installing MySQL Community Server on Windows 11</h1>
+<div class="d-flex justify-content-center">
+</div>
+        </div>
+    </div>
+  </div>
+</header>
+
+  <div class="main">
+    <div class="container">
+      <span class="text-muted text-uppercase"></span>
+      <h1 class="display-4 mt-3"></h1>
+      <div class="mb-md-4 mb-3"></div>
+<article class="article">
+  <div class="content">
+    <p>MySQL is a relational database management system (RDBMS). Relational databases are the most widely used databases today. They store data in tables which consist of rows and columns. MySQL is a popular relational database amongst others, and in this article i will show you how to install mysql on windows 11. There are two ways of installing mysql, with windows msi installer or downloading the zip archive files and setting it up on your system. I would recommend the second method, So you will know how to configure mysql on your local system.</p>
+<h3 class="my-3 my-md-4">Downloading MySQL</h3>
+<p>Download mysql zip files from <a href="https://dev.mysql.com/downloads/mysql" target="_blank">here</a></p>
+<p><center>
+<img alt="img-msql-download-1" class="my-3 img-fluid shadow my-md-4" src="/images/mysql-download-1.png"/>
+</center></p>
+<p>Once downloaded extract the archive file to this location</p>
+<pre><code class="language-text">C:\mysql
+</code></pre>
+<p>The mysql files extracted does not have a data folder. The data folder is where mysql stores database information. To create a data folder run the command below.</p>
+<pre><code class="language-plaintext">"C:\mysql\bin\mysqld" --initialize
+</code></pre>
+<p>The command above will create the data directory in the default location <code>C:\mysql\data</code> and initialize the system database.</p>
+<h3 class="my-3 my-md-4">Starting The Server</h3>
+<p>You can start the mysql server in the terminal console using the command</p>
+<pre><code class="language-plaintext">"C:\mysql\bin\mysqld" --console
+</code></pre>
+<p>This will start the server and you can open a new terminal and connect to mysql client. MySQL comes with a default user root that does not have a password. You can connect to mysql using the default user account.</p>
+<h3 class="my-3 my-md-4">Add MySQL to System Path</h3>
+<p>In order to connect to mysql effectively, you must add mysql to system path. If you do not have mysql in your system path, You will always have to connect to mysql from mysql bin folder</p>
+<pre><code class="language-plaintext">"C:\mysql\bin\mysql" -u root
+</code></pre>
+<p>To add mysql to system path:</p>
+<ul>
+<li>Copy the location of the mysql bin folder <code>c:\mysql\bin</code> to clipboard</li>
+<li>Search for "environment variables" in windows search bar and open it</li>
+<li>Click on the environment variables button</li>
+<li>Select path under the system panel.</li>
+<li>Click on edit.</li>
+<li>Click new and paste the mysql bin folder location</li>
+<li>Select apply and save</li>
+</ul>
+<p>For the best experience, it is better to install mysql server as a service, that way the mysql server will always run in the background. To install the server as a service run the command.</p>
+<pre><code class="language-text">C:&gt; "C:\mysql\bin\mysqld" --install
+</code></pre>
+<p>This adds mysql service to windows services.</p>   </div>
+</article>
+<ul class="list-unstyled">
+  <li class="d-inline">
+    <a href="/tag/mysql.html" class="badge text-bg-success text-decoration-none">mysql</a>
+  </li>
+</ul>
+<hr>
+<div class="mb-3">Share this:</div>
+<a target="_blank" href="https://twitter.com/intent/tweet?text=Installing MySQL Community Server on Windows 11 by @bodeokunfolami at https://pythoneer.dev/installing-mysql-community-server-on-windows-11/">
+  <img src="/theme/twitter.png" width="45px" alt="share button">
+</a>
+     </div>
+  </div>
+
+  <footer class="footer pb-0">
+    <div class="container">
+      <div class="card mb-4">
+        <div class="card-body">
+          <form action="https://pythoneer.dev/sendy/subscribe" method="post" accept-charset="utf-8">
+            <label for="newsletter" class="form-label fs-4">Want to learn python? 💻</label>
+            <p class="text-muted">
+             Helpful python tips directly in your inbox 🔥
+            </p>
+            <div class="mb-3">
+              <input type="email" class="form-control" name="email" placeholder="Email Address">
+            </div>
+            <input type="hidden" name="list" value="Bb5KQVaGFx1fw0h6N4tWbw"/>
+	          <input type="hidden" name="subform" value="yes"/>
+            <button type="submit" class="btn btn-success btn-lg">Subscribe</button>
+          </form>
+        </div>
+      </div>
+    </div>
+<div class="d-flex justify-content-center">
+  <ul class="text-center list-unstyled">
+    <li class="d-inline">
+      <a href="https://www.twitter.com/bodeokunfolami" target="_blank">Twitter</a>
+    </li>
+    <span>&middot;</span>
+    <li class="d-inline">
+      <a href="https://www.github.com/bodeokunfolami" target="_blank">Github</a>
+    </li>
+    <span>&middot;</span>
+    <li class="d-inline">
+      <a href="https://www.linkedin.com/in/bode-okunfolami-04156419a/" target="_blank">Linkedin</a>
+    </li>
+    <span>&middot;</span>
+    <li class="d-inline">
+      <a href="https://www.youtube.com/@PythoneerAcademy" target="_blank">Youtube</a>
+    </li>
+  </ul>
+</div>
+<div class="d-flex justify-content-center bg-white p-2">
+  <span>2022 &copy; <a class="text-primary text-decoration-none" href="https://pythoneer.dev">Pythoneer</a></span>
+</div>  </footer>
+
+  <script type="text/javascript" src="/theme/main.js" crossorigin="anonymous"></script>
+</body>
+
+</html>

@@ -1,0 +1,74 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;700&display=swap');
+
+body {
+    font-family: 'Rubik', 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    font-size: 1.5rem;
+}
+
+.header {
+  position: relative;
+  height: 40vh;
+  overflow: hidden;
+  background: #fff;
+  z-index: 1;
+}
+
+.header::before {
+  content: '';
+  top: 0;
+  left: -50%;
+  position: absolute;
+  width: 200%;
+  height: 100%;
+  background: linear-gradient(to left, #c5b3e6, #8c68cd);
+  border-bottom-left-radius: 50%;
+  border-bottom-right-radius: 50%;
+  z-index: -1;
+}
+
+.title.brand {
+    font-family: 'Rubik', 'cursive';
+}
+
+.title a {
+    text-decoration: none;
+}
+
+.navbar a:hover {
+  color: $primary;
+}
+
+code:not([class]) {
+    display: inline-block;
+    margin: 1px 2px;
+    padding: 0 6px;
+    background-color: rgba(0,0,0,.05);
+    border: 1px solid rgba(0,0,0,.09);
+    border-radius: 3px;
+    color: #0e0d1a;
+    font-family: Roboto Mono,monospace;
+    font-weight: 500;
+    font-size: 1rem;
+    word-wrap: break-word;
+}
+
+.custom-blockquote {
+    background: $cyan-100;
+    margin: 3rem 0;
+    padding: 2rem;
+    border-left: 7px solid $cyan-600;
+    border-radius: 0 5px 5px 0;
+    color: #000;
+  }
+
+  ul.skills li {
+    list-style-type: '✅ ';
+  }
+  ul.social li {
+    list-style-type: '↪ ';
+  }
+
+  footer {
+    background: $purple-100;
+  }

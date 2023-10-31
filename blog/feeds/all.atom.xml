@@ -1,0 +1,1249 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Pythoneer</title><link href="https://pythoneer.dev/" rel="alternate"></link><link href="https://pythoneer.dev/feeds/all.atom.xml" rel="self"></link><id>https://pythoneer.dev/</id><updated>2023-03-20T12:00:00+00:00</updated><subtitle>Learn computer programming with simplicity and clarity</subtitle><entry><title>Database Relationships Explained</title><link href="https://pythoneer.dev/database-relationships-explained/" rel="alternate"></link><published>2023-03-20T12:00:00+00:00</published><updated>2023-03-20T12:00:00+00:00</updated><author><name>Bode Okunfolami</name></author><id>tag:pythoneer.dev,2023-03-20:/database-relationships-explained/</id><summary type="html">&lt;p&gt;A relational database is a widely used database in the world, it organizes data inside a table in the form of rows and columns. A relational database has a predefined structure in which data is organized. Relationships represent connections between two or more tables. Relationships help structure database tables relate …&lt;/p&gt;</summary><content type="html">&lt;p&gt;A relational database is a widely used database in the world, it organizes data inside a table in the form of rows and columns. A relational database has a predefined structure in which data is organized. Relationships represent connections between two or more tables. Relationships help structure database tables relate with each other. There are three major kinds of relationships found in relational databases, they are:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;One-to-One&lt;/li&gt;
+&lt;li&gt;One-to-Many&lt;/li&gt;
+&lt;li&gt;Many-to-Many&lt;/li&gt;
+&lt;/ol&gt;
+&lt;blockquote class="custom-blockquote"&gt;
+&lt;p&gt;One-to-Many relationship is the most common database relationship&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 class="my-3 my-md-4"&gt;One-to-One Relationship&lt;/h3&gt;
+&lt;p&gt;A One-to-One relationship is used to extend a database table to another table. One-to-one relationships combine the two tables as though they are the same tables. For example, a user table has a one-to-one relationship with a profile table, this means that for every user record, there is exactly one profile record. The user and profile table can have only one record on each side of the relationship.&lt;/p&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="one-to-one img" class="img-fluid my-md-4 my-3" src="https://pythoneer.dev/images/one-to-one.png"/&gt;
+&lt;center&gt;&lt;/center&gt;&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;In the diagram above, the avatar for the user is stored in the profile table. A user cannot have more than one profile.&lt;/p&gt;
+&lt;p&gt;The SQL representation of the diagram above.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-sql"&gt;CREATE TABLE user (
+  userId INT PRIMARY KEY AUTO_INCREMENT,
+  username VARCHAR(255) NOT NULL,
+  password VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE profile (
+  profileId INT PRIMARY KEY AUTO_INCREMENT,
+  avatar VARCHAR(50) NULL,
+  userId INT UNIQUE NOT NULL
+);
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Define a one-to-one relationship between the user and the profile table&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-sql"&gt;ALTER TABLE profile
+ADD CONSTRAINT FK_user_profile FOREIGN KEY (userId)
+REFERENCES user (userId);
+&lt;/code&gt;&lt;/pre&gt;
+&lt;blockquote class="custom-blockquote"&gt;
+&lt;p&gt;This is a one-to-one relationship because the userId was set to UNIQUE for every profile record.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 class="my-3 my-md-4"&gt;One-to-Many Relationship&lt;/h3&gt;
+&lt;p&gt;This relationship allows duplicate values in the table, the relationship is defined. This relationship lets a single record from one table be associated with multiple records from another table. For example, When a single post has multiple comments, this can be represented in a database using a one-to-many relationship.&lt;/p&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="one-to-many img" class="img-fluid my-md-4 my-3" src="https://pythoneer.dev/images/one-to-many.png"/&gt;
+&lt;center&gt;&lt;/center&gt;&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;SQL representation of diagram above&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-sql"&gt;CREATE TABLE post (
+  postId INT PRIMARY KEY AUTO_INCREMENT,
+  title VARCHAR(255) NOT NULL,
+  body TEXT NOT NULL
+);
+
+
+CREATE TABLE comment (
+  commentId INT PRIMARY KEY AUTO_INCREMENT,
+  body TEXT NOT NULL,
+  postId INT NOT NULL
+);
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Define the relationship with a foreign key on the postId column in the comment table&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-sql"&gt;ALTER TABLE comment
+ADD CONSTRAINT FK_post_comment FOREIGN KEY (postId)
+REFERENCES post (postId);
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The foreign key constraint will relate each record in the comment table to a single record in the post table.&lt;/p&gt;
+&lt;h3 class="my-3 my-md-4"&gt;Many-to-Many Relationship&lt;/h3&gt;
+&lt;p&gt;This relationship is used when multiple records in one table are associated with multiple records in another table. An example of a many-to-many relationship is the relationship between posts and tags, any number of posts can have any number of tags. We can have multiple post records and at the same time multiple tags related to each other. A Many-to-Many relationship is created with two foreign key constraints from the junction table to the individual tables involved in the relationship. A junction table is a separate table used to track a many-to-many relationship.&lt;/p&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="many-to-many img" class="img-fluid my-md-4 my-3" src="https://pythoneer.dev/images/many-to-many.png"/&gt;
+&lt;center&gt;&lt;/center&gt;&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;The SQL representation of the diagram above&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-sql"&gt;CREATE TABLE post (
+  postId INT PRIMARY KEY AUTO_INCREMENT,
+  title VARCHAR(255) NOT NULL,
+  body TEXT NOT NULL
+);
+
+CREATE TABLE tag (
+  tagId INT PRIMARY KEY AUTO_INCREMENT,
+  name VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE tagged_items (
+  postId INT NOT NULL,
+  tagId INT NOT NULL,
+);
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Create the foreign key constraints for the junction table &lt;code&gt;tagged_items&lt;/code&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-sql"&gt;ALTER TABLE tagged_items
+ADD CONSTRAINT FK_post_tagged_items FOREIGN KEY (postId)
+REFERENCES post (postId);
+
+ALTER TABLE tagged_items
+ADD CONSTRAINT FK_tag_tagged_items FOREIGN KEY (tagId)
+REFERENCES tag (tagId);
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The junction table will have two one-to-many relationships, one for the post table and one for the tag table.&lt;/p&gt;
+&lt;h3 class="my-3 my-md-4"&gt;Querying Tables With Relationships&lt;/h3&gt;
+&lt;p&gt;When a table has a relationship with other tables, we can easily query the related table using the &lt;code&gt;JOIN&lt;/code&gt; statement. The join statements let us look up records in a related table. The join statement needs a link that is, a record that is the same in both tables. We can query related tables with the join statement in three ways, inner, left, and right join. Inner join is the most basic way to join two tables together.&lt;/p&gt;
+&lt;p&gt;We can query a table with a one-to-one relationship with&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-sql"&gt;SELECT u.username, p.avatar FROM users AS u
+INNER JOIN profile AS p ON u.userId = p.userId
+WHERE p.profileId = [id];
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Similarly, we can also query a one-to-many relationship. for example get all the comments for a particular post.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-sql"&gt;SELECT c.body FROM post AS p
+INNER JOIN comment AS c ON p.postId = c.postId
+WHERE p.postId = [id]; 
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Querying a many-to-many relationship is similar to that of a one-to-many relationship the only difference it involves tables, so there will be two join statements in a single SQL query.&lt;/p&gt;
+&lt;p&gt;Database relationships are important in database modeling. A proper database utilizes relationships to minimize duplication of data.&lt;/p&gt;</content><category term="python"></category><category term="mysql"></category></entry><entry><title>Django, The Break Down</title><link href="https://pythoneer.dev/django-the-break-down/" rel="alternate"></link><published>2023-03-17T00:35:00+00:00</published><updated>2023-03-17T00:35:00+00:00</updated><author><name>Bode Okunfolami</name></author><id>tag:pythoneer.dev,2023-03-17:/django-the-break-down/</id><summary type="html">&lt;p&gt;Django is a web framework written in python. It is a full featured framework used by many large companies, some of which are fortune 500 companies. Django is a framework that lets you build web apps as quickly as possible. In this article, I would break down django and explain …&lt;/p&gt;</summary><content type="html">&lt;p&gt;Django is a web framework written in python. It is a full featured framework used by many large companies, some of which are fortune 500 companies. Django is a framework that lets you build web apps as quickly as possible. In this article, I would break down django and explain it in a way that even a baby will know what django is all about 😉👌.&lt;/p&gt;
+&lt;p&gt;It is A secure framework with many features for making web development a fast process. You do not have to code every feature of your app from scratch, you can just leverage django's library to build web app features.&lt;/p&gt;
+&lt;p&gt;Django uses the Model-View-Template (MVT) architecture design principle. The benefit of this is that your code is already structured and as a beginner, you won't have to worry about writing your app the wrong way.&lt;/p&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="django-mvt" class="img-fluid my-md-4 my-3" src="https://pythoneer.dev/images/MVT.png"/&gt;
+&lt;center&gt;&lt;/center&gt;&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;The model handles data through the database, view processes the data into information and the template renders that information on your browser. The view is bound to a URL or route such that when we navigate to a URL on our browser the view is fired, and from there the model then template.&lt;/p&gt;
+&lt;h3 class="my-3 my-md-4"&gt;Model&lt;/h3&gt;
+&lt;p&gt;A model is a representation of a database table. In django models are used to represent table schemas. The model comes with an Object-Relational-Mapper (ORM) that abstracts the process of querying database tables, you do not have to write raw SQL.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;from django.db import models
+
+class Post(models.Model):
+  title = models.CharField(max_length=255)
+  slug = models.SlugField(unique=True)
+  body = models.TextField()
+  publish = models.DateField()
+
+  class Meta:
+    db_table = 'posts'
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;When we create a model, django will use it to generate the SQL statement for the database table under the hood.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-sql"&gt;--
+-- Create model Post
+--
+CREATE TABLE `posts` (`id` integer NOT NULL PRIMARY KEY, `slug` varchar(50) NOT NULL UNIQUE, `body` longtext NOT NULL, `publish` date NOT NULL);
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 class="my-3 my-md-4"&gt;View&lt;/h3&gt;
+&lt;p&gt;The view is where our application logic lives. The view process data from the database and returns an http response object. The response object is usually an html template response.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;from django.shortcuts import render
+from . models import Post
+
+def posts_view(request):
+  posts = Post.objects.all() # Get all posts from database
+  return render(request, 'posts.html', { 'posts': posts })
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Django views accepts the &lt;code&gt;request&lt;/code&gt; object as an argument, then we see the ORM in action when we call &lt;code&gt;Post.objects.all()&lt;/code&gt; which is equivalent to the SQL statement &lt;code&gt;SELECT * FROM posts&lt;/code&gt;. The render function binds the data via template context so that the posts will be accessible in the template.&lt;/p&gt;
+&lt;p&gt;The view is also bound to a URL so we can view the response object in our browser.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;from django.urls import path
+from . views import post_views
+
+urlpatterns = [
+  path('posts/', posts_views),
+]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 class="my-3 my-md-4"&gt;Template&lt;/h3&gt;
+&lt;p&gt;Django has a template language for rendering data.  This is how we display the &lt;code&gt;posts&lt;/code&gt; in html using django templates.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-html"&gt;&amp;lt;html&amp;gt;
+  &amp;lt;head&amp;gt;
+    &amp;lt;title&amp;gt;Django Template&amp;lt;/title&amp;gt;
+  &amp;lt;/head&amp;gt;
+  &amp;lt;body&amp;gt;
+    {% for post in posts %}
+    &amp;lt;h2&amp;gt;{{ post.title }}&amp;lt;/h2&amp;gt;
+    &amp;lt;small&amp;gt;{{ post.publish }}&amp;lt;/small&amp;gt;
+    &amp;lt;p&amp;gt;{{ post.body }}&amp;lt;/p&amp;gt;
+    {% endfor %}
+  &amp;lt;/body&amp;gt;
+&amp;lt;/html&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;This syntax, &lt;code&gt;{% expression %}&lt;/code&gt; the curl brackets and the percentage symbol, allows us to use python statements like if, if-else, for inside of the templates. The double curl brackets &lt;code&gt;{{ variable }}&lt;/code&gt; syntax is used for accessing python objects, variables, etc. With django templates, you can control what can be displayed based on data passed in the template context.&lt;/p&gt;
+&lt;h3 class="my-3 my-md-4"&gt;Creating A Blank Django Project&lt;/h3&gt;
+&lt;p&gt;To create a blank django project, you must install django site-package using pip. once you have installed django, you use the &lt;code&gt;django-admin&lt;/code&gt; command to create an empty django project.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-bash"&gt;pip install django # installing django
+
+django-admin startproject djangoproject # start a blank django project
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Your django project will look something like this.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-treeview"&gt;djangoproject/
+|-- djangoproject/
+|   |-- __init__.py
+|   |-- settings.py
+|   |-- urls.py
+|   `-- wsgi.py
+`-- manage.py
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Each django project is made up of apps. Apps in django represent a part of your web application for example, if I wanted to add a blog to my project I can create a blog app, if I want to add authentication, then I can create an app that handles that. Let's create a blog app in the project.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-bash"&gt;python manage.py startapp blog
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;This would create a folder blog with the structure below&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-treeview"&gt;djangoproject/
+|-- djangoproject/
+|   |-- settings.py
+|   |-- urls.py
+|   |-- wsgi.py
+|   `-- __init__.py
+|-- blog/
+|   |-- migrations/
+|   |-- admin.py
+|   |-- tests.py
+|   |-- apps.py
+|   |-- models.py
+|   |-- views.py
+|   `-- __init__.py
+`-- manage.py
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;You can see we have a file for models and views. We create our models inside of models.py and write our view functions inside of views.py. The django project folder has files for URLs and settings. The settings file is where we handle all our app configurations. Django comes with a sqlite database by default but you can modify the DATABASES config in the settings file to change it.&lt;/p&gt;
+&lt;p&gt;In this article, I broke down how django works. Django has its way of doing things which can be scary to people who wants to learn the framework, but once they understand the how and why they become like superheroes of web development. I hope this post was able to clarify some misconceptions you have about django.&lt;/p&gt;</content><category term="python"></category><category term="django"></category><category term="web development"></category></entry><entry><title>Higher Order Functions In Python</title><link href="https://pythoneer.dev/higher-order-functions-in-python/" rel="alternate"></link><published>2023-02-21T00:00:00+00:00</published><updated>2023-02-21T00:00:00+00:00</updated><author><name>Bode Okunfolami</name></author><id>tag:pythoneer.dev,2023-02-21:/higher-order-functions-in-python/</id><summary type="html">&lt;p&gt;Higher order functions are functions that can be passed as an argument to a function or returned from a function as a value. It is a functional programming approach to solving problems. Python is a multi-paradigm language, meaning you can code it in different styles, from functional to object-oriented and …&lt;/p&gt;</summary><content type="html">&lt;p&gt;Higher order functions are functions that can be passed as an argument to a function or returned from a function as a value. It is a functional programming approach to solving problems. Python is a multi-paradigm language, meaning you can code it in different styles, from functional to object-oriented and even procedural. In this article, I will be explaining higher order functions and their applications in python.&lt;/p&gt;
+&lt;p&gt;To sum all integers in a given range we loop through it and sum each number at a time. This is an imperative method of solving the problem.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;counter = 0
+total = 0
+while counter &amp;lt; 5:
+  total += counter
+  counter += 1
+print(total) # 10
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;A lot is going on, just to sum numbers in a range. When you look at the code at a glance you may not be able to determine what it does. Using a higher order function will make your code short. &lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;total = sum(range(0, 5))
+print(total) # 10
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The &lt;code&gt;range&lt;/code&gt; function is passed as an argument to the &lt;code&gt;sum&lt;/code&gt; function. With this, we can understand that the &lt;code&gt;sum&lt;/code&gt; function is a higher order function. When we compare the two examples above, you can tell that the one with the higher-order function has far less code. This is one of the benefits of higher order functions, they make your code straightforward and understandable. When a function is called it runs a series of steps in the background that is not visible to us. This is called abstraction. Abstraction hides the complex steps a function takes to solve a problem.&lt;/p&gt;
+&lt;p&gt;Higher order functions allow us to write dynamic code because we can abstract and change functions dynamically like values. Consider this problem, double, triple, and quadruple any given number.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;def multiply_by(n):
+  def inner(weight):
+    return weight * n
+  return inner
+
+double    = multiply_by(2)
+triple    = multiply_by(3)
+quadruple = multiply_by(4)
+
+print(double(5)) # 10
+print(triple(5)) # 15
+print(quadruple(5)) # 20
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The &lt;code&gt;multiply_by&lt;/code&gt; function returns a function as a value, this allows us to dynamically change the number we want to multiply by.&lt;/p&gt;
+&lt;p&gt;Higher order functions are great for data processing. We will look at three major higher-order functions for handling data. With these functions, you don't have to write for-loops for an iterable.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;map&lt;/li&gt;
+&lt;li&gt;filter&lt;/li&gt;
+&lt;li&gt;reduce&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 class="my-3 my-md-4"&gt;map&lt;/h3&gt;
+&lt;p&gt;We can transform a list of elements using the map built-in function. The map operates on a list and returns a copy of the transformed list. The map function comes with the python interpreter but for education, we will implement our map function.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;def do_map(data_list, modify):
+  copy = []
+  for data in data_list:
+    copy.append(modify(data))
+  return copy
+
+country_codes = ['usd', 'ngn', 'gbp', 'jny']
+print(do_map(country_codes, str.upper)) # ['USD', 'NGN', 'GBP', 'JNY']
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The &lt;code&gt;do_map&lt;/code&gt; function takes an iterable and a function as an argument. In the example above I am making use of the &lt;code&gt;str.upper&lt;/code&gt; function to transform all the elements in the list to upper case. You can also create your custom functions and it is not necessary to use python's built-in function.&lt;/p&gt;
+&lt;h3 class="my-3 my-md-4"&gt;filter&lt;/h3&gt;
+&lt;p&gt;When we filter a list we are selecting out elements that meet certain conditions to form a new list. For example, If you have a website along with a list of users' ages, You may want to only allow users above a certain age access to some exclusive content on your website. This problem can be solved elegantly using higher order functions.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;def do_filter(data_list, condition):
+  copy = []
+  for data in data_list:
+    if condition(data):
+      copy.append(data)
+  return copy
+
+def condition(data):
+  if data &amp;lt; 18:
+    return False
+  return True
+
+ages = [10, 11, 14, 22, 65, 18, 25, 44, 16]
+print(do_filter(ages, condition)) # [22, 65, 18, 25, 44]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;blockquote class="custom-blockquote"&gt;
+&lt;p&gt;The &lt;code&gt;map&lt;/code&gt; and &lt;code&gt;filter&lt;/code&gt; functions are built-in functions in the python interpreter.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 class="my-3 my-md-4"&gt;reduce&lt;/h3&gt;
+&lt;p&gt;The reduce function operates on an iterable and returns a single value. It applies a function cumulatively to items inside of an iterable.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;def reduce(data_list, combine, start=0):
+    current = start
+    for data in data_list:
+        current = combine(current, data)
+    return current
+
+def add(a, b):
+    return a + b
+
+print(reduce([1, 2, 3, 4], add)) # 10
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 class="my-3 my-md-4"&gt;Lambda Functions&lt;/h3&gt;
+&lt;p&gt;These are functions that are declared inline using the &lt;code&gt;lambda&lt;/code&gt; keyword. They are referred to as anonymous functions because they do not have a name unlike functions created with the &lt;code&gt;def&lt;/code&gt; keyword. Lambda functions allow us to write shorter code because we can just define the function we want to pass as an argument inside the function call. The examples above of map, filter, and reduce could be re-written using lambda functions&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;from functools import reduce
+
+country_codes = ['ngn', 'usd', 'gbp', 'jny']
+ages = [22, 18, 14, 12, 19, 11]
+
+map(lambda text: text.upper(), country_codes)
+
+filter(lambda n: n &amp;lt; 18, ages)
+
+reduce(lambda a, b: a + b, [1, 2, 3, 4])
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The built-in map and filter functions will return an iterator object so to get the generated list we have to use the &lt;code&gt;list&lt;/code&gt; function to convert it back to a list.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;list(map(lambda text: text.upper(), country_codes)) # ['NGN', 'USD', 'GBP', 'JNY']
+
+list(filter(lambda n: n &amp;lt; 18, ages)) # [14, 12, 11]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;If you have not started using higher order functions to write short and expressive code. I am inviting you to use them. If you want to learn more about functional programming in python you can visit the official python docs &lt;a href="https://docs.python.org/3/howto/functional.html" target="_blank"&gt;here&lt;/a&gt;.&lt;/p&gt;</content><category term="python"></category><category term="python"></category><category term="functional programming"></category><category term="higher-order functions"></category></entry><entry><title>Configure Django And MySQL Database</title><link href="https://pythoneer.dev/configure-django-and-mysql-database/" rel="alternate"></link><published>2023-01-17T08:00:00+00:00</published><updated>2023-01-17T08:00:00+00:00</updated><author><name>Bode Okunfolami</name></author><id>tag:pythoneer.dev,2023-01-17:/configure-django-and-mysql-database/</id><summary type="html">&lt;p&gt;In this post, I will show you how to set up Django with MySQL database. This tutorial assumes you already have MySQL installed on your computer. Django comes with a default SQLite database that does not require any setup. SQLite databases are not good for large scale applications therefore, it …&lt;/p&gt;</summary><content type="html">&lt;p&gt;In this post, I will show you how to set up Django with MySQL database. This tutorial assumes you already have MySQL installed on your computer. Django comes with a default SQLite database that does not require any setup. SQLite databases are not good for large scale applications therefore, it is recommended you use a secure database like MySQL for your projects. Mysql is not free software but it has a free community version you can download from &lt;a href="https://dev.mysql.com/downloads/mysql/" target="_blank"&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;When you first install MySQL, it comes with a default root user. In some cases, you will be required to set a password for the root user; in others, you will not. It is not recommended to use MySQL's root user, so we are going to create a new user and grant the user the privileges from the root user. &lt;/p&gt;
+&lt;h3 class="my-3 my-md-4"&gt;Setup MySQL&lt;/h3&gt;
+&lt;p&gt;Enter the MySQL shell with the following command&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-bash"&gt;mysql -u root
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;If you configured a password during your installation you use the command below. This will show you a prompt where you can now enter your password.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-bash"&gt;mysql -u root -p
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;If you are using ubuntu or Debian Linux and the above commands did not work for you use:&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-bash"&gt;sudo mysql
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Create the database&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-sql"&gt;CREATE DATABASE mydb;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Create a new user with a password.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-sql"&gt;CREATE USER 'dapo'@'localhost' IDENTIFIED BY 'password';
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Grant privileges to your new user&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-sql"&gt;GRANT ALL PRIVILEGES ON mydb.* TO 'dapo'@'localhost' WITH GRANT OPTION;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;This command will allow the user have full access to the database &lt;code&gt;mydb&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Then finally use the flush command to refresh.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-sql"&gt;FLUSH PRIVILEGES;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 class="my-3 my-md-4"&gt;Setup Django&lt;/h3&gt;
+&lt;p&gt;Before we can configure our Django app with MySQL first we need the following packages:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;mysqlclient&lt;/li&gt;
+&lt;li&gt;django-environ&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;mysqlclient&lt;/h4&gt;
+&lt;p&gt;This is the package that allows MySQL to communicate with our Django server if you do not have it then your Django app will not run.&lt;/p&gt;
+&lt;p&gt;Install command:&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-bash"&gt;pip install mysqlclient
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h4&gt;django-environ&lt;/h4&gt;
+&lt;p&gt;This is a package that allows us to manage environment variables easily, using a .env file. This package makes configuring MySQL with Django easy. &lt;/p&gt;
+&lt;p&gt;Install command:&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-bash"&gt;pip install django-environ
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;After you have installed the packages create a file called .env beside the settings.py file in your Django project.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-treeview"&gt;django_project/
+|-- django_project/
+|   |-- .env
+|   |-- settings.py
+|   |-- urls.py
+|   |-- wsgi.py
+|   `-- __init__.py
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Inside the .env file create an environment variable &lt;code&gt;DATABASE_URL&lt;/code&gt; with the connection string as the value&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-plaintext"&gt;DATABASE_URL=mysql://dapo:password@localhost/mydb
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Import the environ module and load the environment variable inside of the settings.py.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;import environ
+
+# Load the environment variable inside python
+env = environ.Env()
+environ.Env.read_env()
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Finally, use the env variable to load the database configuration inside of the &lt;code&gt;DATABASES&lt;/code&gt; python dictionary located inside &lt;code&gt;settings.py&lt;/code&gt; file.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;# The database configuration will be generated from
+# the connection string in the .env file
+DATABASES = {
+  'default': env.db()
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The &lt;code&gt;env.db()&lt;/code&gt; function will generate the configuration dictionary for MySQL with the &lt;code&gt;DATABASE_URL&lt;/code&gt; environment variable.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;{
+  'NAME': 'mydb', 
+  'USER': 'dapo', 
+  'PASSWORD': 'password', 
+  'HOST': 'localhost', 
+  'PORT': 3306, 
+  'ENGINE': 'django.db.backends.mysql'
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;blockquote class="custom-blockquote"&gt;
+&lt;p&gt;You can connect to MySQL database hosted on another server. Change the HOST from localhost to the server's HOST name and set the PORT the server is using. The default PORT for MySQL is 3306. This is what most servers will use.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;If you have reached the end of this article, You should be able to use django-environ to setup Django and MySQL. I know you can, because its not difficult. &lt;/p&gt;</content><category term="python"></category><category term="django"></category><category term="python"></category><category term="mysql"></category></entry><entry><title>Recursion In Python</title><link href="https://pythoneer.dev/recursion-in-python/" rel="alternate"></link><published>2023-01-16T23:41:00+00:00</published><updated>2023-01-16T23:41:00+00:00</updated><author><name>Bode Okunfolami</name></author><id>tag:pythoneer.dev,2023-01-16:/recursion-in-python/</id><summary type="html">&lt;p&gt;Recursion is a programming strategy used for breaking complex computation problems into small sub-problems that can be solved. The recursion problem is self-referential. The strategy is deployed when a function makes copies of itself to solve sub-problems of a computation. Every recursive function has a &lt;em&gt;base case&lt;/em&gt; that allows the …&lt;/p&gt;</summary><content type="html">&lt;p&gt;Recursion is a programming strategy used for breaking complex computation problems into small sub-problems that can be solved. The recursion problem is self-referential. The strategy is deployed when a function makes copies of itself to solve sub-problems of a computation. Every recursive function has a &lt;em&gt;base case&lt;/em&gt; that allows the recursion to end peacefully.&lt;/p&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="img" class="img-fluid my-md-4 my-3" src="https://pythoneer.dev/images/recursion.png"/&gt;
+&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;The recursive call will keep creating copies of &lt;code&gt;func()&lt;/code&gt; which consequently will keep printing "recurse" for eternity 😀, no am just kidding till your computer runs out of memory. But python has a maximum recursion dept that the recursion call will be terminated once the threshold has been reached.&lt;/p&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="img-recursion-error" class="img-fluid my-md-4 my-3" src="https://pythoneer.dev/images/recursion-error.png"/&gt;
+&lt;center&gt;&lt;/center&gt;&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;You can get the limit using the sys module's &lt;code&gt;getrecursionlimit()&lt;/code&gt; function.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;import sys
+sys.getrecursionlimit() # 1000
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;If the default recursion limit is not good enough for you, you can increase it using the &lt;code&gt;setrecursionlimit()&lt;/code&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;sys.setrecursionlimit(2000)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;blockquote class="custom-blockquote"&gt;
+&lt;p&gt;It is recommended that you do not temper with the recursion limit as the default is more than enough for most of your use cases&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 class="my-3 my-md-4"&gt;How to Exit A Recursion&lt;/h3&gt;
+&lt;p&gt;To exit a recursion you must specify a base case that once met the recursion will end.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;def func(n=0):
+  if n == 5: return # base case
+  print('recurse')
+  func(n + 1)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;We are using the positional argument &lt;code&gt;n=0&lt;/code&gt; to track the recursion calls, once the base case, &lt;code&gt;n == 5&lt;/code&gt; has been met, the function will return. Note that the base condition will not be met if you don't increment &lt;code&gt;n&lt;/code&gt; by 1 in the recursive call. The recursion will only print 'recurse' five times because of the base case.&lt;/p&gt;
+&lt;h3 class="my-3 my-md-4"&gt;Using Recursion In Python&lt;/h3&gt;
+&lt;p&gt;Let's check if a word is a palindrome. A palindrome is a word that reads the same backward, for example, racecar.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;def palindrome(word):
+    last_index = len(word) - 1
+    if len(word) &amp;lt;= 1: # base case
+        return True
+    if word[0] != word[last_index]: # base case
+        return False 
+    return palindrome(word[1:last_index])
+palindrome('racecar') # True
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;We have two base cases for when the word is a palindrome and when it is not. The recursion works by removing the first and last characters and then checking if the current first and last characters are the same until there is only one character, then the function will return True or if the characters don't match it will return False.&lt;/p&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="img-palindrome" class="img-fluid my-md-4 my-3" src="https://pythoneer.dev/images/palindrome.png"/&gt;
+&lt;center&gt;&lt;/center&gt;&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;Another common recursion problem is factorial. A factorial is the product of all numbers less than or equal to the given number.&lt;/p&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="img-factorial" class="img-fluid my-md-4 my-3" src="https://pythoneer.dev/images/factorial.png"/&gt;
+&lt;center&gt;&lt;/center&gt;&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;We can use recursion to solve for the factorial of any given number in python.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;def factorial(n):
+  if n == 0:
+    return 1
+  return n * factorial(n - 1)
+
+factorial(4) # 24
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;the number n will be multiplied by its referenced self until the base condition has been reached &lt;code&gt;n == 0&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="img-factorial" class="img-fluid my-md-4 my-3" src="https://pythoneer.dev/images/factorial-1.png"/&gt;
+&lt;center&gt;&lt;/center&gt;&lt;/center&gt;&lt;/p&gt;
+&lt;h3 class="my-3 my-md-4"&gt;Recursion vs. Iteration&lt;/h3&gt;
+&lt;p&gt;Almost any recursive problem can be solved iteratively but recursions are generally simpler and more concise. The trade-off for simple recursive functions is that they consume more memory as the computer keeps track of all the copies of the function created.&lt;/p&gt;</content><category term="python"></category><category term="python"></category><category term="recursion"></category></entry><entry><title>Setup Windows 11 for Python Development</title><link href="https://pythoneer.dev/setup-windows-11-for-python-development/" rel="alternate"></link><published>2022-12-20T16:50:00+00:00</published><updated>2022-12-20T16:50:00+00:00</updated><author><name>Bode Okunfolami</name></author><id>tag:pythoneer.dev,2022-12-20:/setup-windows-11-for-python-development/</id><summary type="html">&lt;p&gt;Python is an interpreted, general purpose, high level programming language. It is a popular language for data science, web development etc. It has an easy to understand syntax that makes it an excellent choice for beginner programmers.&lt;/p&gt;
+&lt;p&gt;In this tutorial, we'll learn how to setup python on a windows 11 …&lt;/p&gt;</summary><content type="html">&lt;p&gt;Python is an interpreted, general purpose, high level programming language. It is a popular language for data science, web development etc. It has an easy to understand syntax that makes it an excellent choice for beginner programmers.&lt;/p&gt;
+&lt;p&gt;In this tutorial, we'll learn how to setup python on a windows 11 machine. This tutorial also works for other versions of windows.&lt;/p&gt;
+&lt;h3 class="my-3 my-md-4"&gt;Step 1: Installing Python&lt;/h3&gt;
+&lt;p&gt;To install the python, download the latest version from &lt;a href="https://python.org/downloads" target="_blank"&gt;python.org&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;center&gt;&lt;img alt="download-python" class="img-fluid my-md-4 my-3 shadow" src="https://pythoneer.dev/images/download-python.png" width="90%"/&gt;&lt;center&gt;&lt;/center&gt;&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;Navigate to your downloads folder and double click on the installer to launch. Once the installer is running make sure to click "Add python.exe to PATH" at the bottom corner of the installer window then click "Install Now".&lt;/p&gt;
+&lt;p&gt;&lt;center&gt;&lt;img alt="installing-python-1" class="img-fluid my-md-4 my-3" src="https://pythoneer.dev/images/installing-python-1.png" width="90%"/&gt;&lt;/center&gt;&lt;/p&gt;
+&lt;blockquote class="custom-blockquote"&gt;
+&lt;p&gt;If you do not click "Add python.exe to PATH" it will be difficult to install python packages in the future, if you miss this step you can uninstall and install python again.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;To verify that python installed successfully and has been added to your system path, open windows command prompt and type the command &lt;code&gt;python --version&lt;/code&gt;. You should see an output of the version of python installed on your computer.&lt;/p&gt;
+&lt;p&gt;At this stage we have successfully installed python on our computer. The next step is to decide what we will use to write and run our python code. We could use a IDE or a normal text editor. For this tutorial we will be using a text editor but if you want to use an IDE you can use &lt;a href="https://jetbrains.com/pycharm/download/" target="_blank"&gt;PyCharm IDE&lt;/a&gt;&lt;/p&gt;
+&lt;h3 class="my-3 my-md-4"&gt;Step 2: Download Git&lt;/h3&gt;
+&lt;p&gt;In this step we will download git. Git is a version control software for managing multiple versions of your application. But the main reason we are downloading git is so we can use git bash which is a unix like command shell. Git bash is better for software development than the default windows shell (CMD). To download git head to &lt;a href="https://git-scm.com/downloads" target="_blank"&gt;git-scm.com&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;center&gt;&lt;img alt="download-git" class="img-fluid my-md-4 my-3" src="https://pythoneer.dev/images/download-git.png" width="90%"/&gt;&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;Run the installer to install git on your computer.&lt;/p&gt;
+&lt;h3 class="my-3 my-md-4"&gt;Step 3: Download Vscode Text Editor&lt;/h3&gt;
+&lt;p&gt;We will be using visual studio code as our text editor to write our code. Vscode is the worlds most popular text editor with a large community, which makes it an ideal choice amongst software developers for coding. You can download the latest version of vscode from &lt;a href="https://code.visualstudio.com" target="_blank"&gt;code.visualstudio.com&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;center&gt;&lt;img alt="download-vscode" class="img-fluid my-md-4 my-3" src="https://pythoneer.dev/images/download-vscode.png" width="90%"/&gt;&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;Follow the installation steps to install visual studio code on your computer. Once visual studio has been installed, It will launch the default editor window.&lt;/p&gt;
+&lt;p&gt;&lt;center&gt;&lt;img alt="vscode-window" class="img-fluid my-md-4 my-3" src="https://pythoneer.dev/images/vscode-window.png" width="90%"/&gt;&lt;/center&gt;&lt;/p&gt;
+&lt;h3 class="my-3 my-md-4"&gt;Step 4: Configure Vscode for Python Development&lt;/h3&gt;
+&lt;p&gt;In this step we are going to install a python extension inside of vscode. This extension lets you run your python code with vscode. To install the extension click on the extension tab on the sidebar and use the search bar to search 'python'. The first result of that search is the extension to install.&lt;/p&gt;
+&lt;p&gt;&lt;center&gt;&lt;img alt="download-python-extension" class="img-fluid my-md-4 my-3" src="https://pythoneer.dev/images/download-python-extension.png" width="90%"/&gt;&lt;/center&gt;&lt;/p&gt;
+&lt;h3 class="my-3 my-md-4"&gt;Last Step: Set Git Bash as Default Profile&lt;/h3&gt;
+&lt;p&gt;Vscode comes with an built-in terminal shell that defaults to windows power shell. We are going to change it to git bash. To change the default terminal profile to git bash:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Click on the settings icon&lt;/li&gt;
+&lt;li&gt;Click on "Command Palette..."&lt;/li&gt;
+&lt;li&gt;Type "select profile" and click on the option that appear below&lt;/li&gt;
+&lt;li&gt;Select Git bash&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;center&gt;&lt;img alt="select-default-profile" class="img-fluid my-md-4 my-3" src="https://pythoneer.dev/images/select-default-profile.png" width="90%"/&gt;&lt;/center&gt;&lt;/p&gt;
+&lt;h3 class="my-3 my-md-4"&gt;Finally&lt;/h3&gt;
+&lt;p&gt;We have setup our computer for windows development. The next thing to do is to write a python script and run with vscode. Create a new file and save it as &lt;code&gt;hello.py&lt;/code&gt; and type the following &lt;code&gt;print('Hello World')&lt;/code&gt;. To run the script click on the play icon on the upper right corner of the text editor window.&lt;/p&gt;
+&lt;p&gt;&lt;center&gt;&lt;img alt="run-python-script" class="img-fluid my-md-4 my-3" src="https://pythoneer.dev/images/run-python-script.png" width="90%"/&gt;&lt;/center&gt;&lt;/p&gt;</content><category term="python"></category><category term="python"></category><category term="windows"></category></entry><entry><title>How to Create a Virtual Environment In Python?</title><link href="https://pythoneer.dev/how-to-create-a-virtual-environment-in-python/" rel="alternate"></link><published>2022-12-07T19:00:00+00:00</published><updated>2022-12-07T19:00:00+00:00</updated><author><name>Bode Okunfolami</name></author><id>tag:pythoneer.dev,2022-12-07:/how-to-create-a-virtual-environment-in-python/</id><summary type="html">&lt;h3 class="my-3 my-md-4"&gt;What is a Virtual Environment&lt;/h3&gt;
+&lt;p&gt;A virtual environment in python is a tool that isolates packages in your project so it does not conflict with other python packages. For example, in our main python environment, we have the python package &lt;code&gt;pygame==1.9.5&lt;/code&gt; which we installed and used for …&lt;/p&gt;</summary><content type="html">&lt;h3 class="my-3 my-md-4"&gt;What is a Virtual Environment&lt;/h3&gt;
+&lt;p&gt;A virtual environment in python is a tool that isolates packages in your project so it does not conflict with other python packages. For example, in our main python environment, we have the python package &lt;code&gt;pygame==1.9.5&lt;/code&gt; which we installed and used for Project A, and we want to start another project Project B that requires &lt;code&gt;pygame==2.1.2&lt;/code&gt;. If we install another version of the pygame package python will not be able to differentiate between them, hence the reason for virtual environments.&lt;/p&gt;
+&lt;p&gt;&lt;center&gt;
+&lt;img alt="img-venv-diagram" class="img-fluid my-md-4 my-3" src="https://pythoneer.dev/images/venv-diagram.png"/&gt;
+&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;to see all the packages in your main python environment run the command.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-bash"&gt;$ pip freeze
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;when you run this command you should see a list of packages with their version numbers.&lt;/p&gt;
+&lt;h3 class="my-3 my-md-4"&gt;Why You Should Use a Virtual Environment&lt;/h3&gt;
+&lt;p&gt;It is recommended to use virtual environments when working on python projects but here are a few reasons why you should use them.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;They help manage your project dependencies across multiple platforms&lt;/li&gt;
+&lt;li&gt;They prevent confusion in the future when newer versions of packages are released.&lt;/li&gt;
+&lt;li&gt;Keep the main python environment clean with only the necessary packages.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 class="my-3 my-md-4"&gt;Creating a Virtual Environment&lt;/h3&gt;
+&lt;p&gt;Python has a built-in module for creating virtual environments. To create a virtual environment run the following command inside your project folder.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-bash"&gt;$ python -m venv .venv
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Once the virtual environment has been created the final step will be to activate it. To activate it we run the following command in your project root folder.&lt;/p&gt;
+&lt;p&gt;for Linux/macOS&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-bash"&gt;source .venv/bin/activate
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;for windows; cmd&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-bash"&gt;./.venv/scripts/activate
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;for windows; git bash&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-bash"&gt;source .venv/scripts/activate
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Enter the command that corresponds to your operating system and it will activate the virtual environment that was created. The virtual environment is like the main python environment only without any packages. When you run &lt;code&gt;pip freeze&lt;/code&gt; you will note that it has no packages installed inside of it.&lt;/p&gt;
+&lt;p&gt;The structure of a python project using a virtual environment will usually look like this:&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-treeview"&gt;project_b/
+|-- .venv/
+|    |-- bin/
+|    |-- lib/
+|    |-- .gitignore
+|    `-- pyvenv.cfg
+|-- script.py
+|-- main.py
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;All the packages installed inside of the probject_b virtual environment will be used for project_b only and does not affect packages of other projects.&lt;/p&gt;</content><category term="python"></category><category term="python"></category><category term="virtualenv"></category><category term="venv"></category></entry><entry><title>Object Oriented Programming In Python: Part 2</title><link href="https://pythoneer.dev/object-oriented-programming-in-python-part-2/" rel="alternate"></link><published>2022-12-01T19:00:00+00:00</published><updated>2022-12-01T19:00:00+00:00</updated><author><name>Bode Okunfolami</name></author><id>tag:pythoneer.dev,2022-12-01:/object-oriented-programming-in-python-part-2/</id><summary type="html">&lt;p&gt;In the last article we looked act object oriented programming in python, I explained what objects, attributes and methods or functions are the fundamentals of OOP. In this article we will be looking at four important concepts of object-oriented programming.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Inheritance&lt;/li&gt;
+&lt;li&gt;Abstraction&lt;/li&gt;
+&lt;li&gt;Encapsulation&lt;/li&gt;
+&lt;li&gt;Polymorphism&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 class="my-3 my-md-4"&gt;Inheritance&lt;/h3&gt;
+&lt;p&gt;Inheritance involves two or more …&lt;/p&gt;</summary><content type="html">&lt;p&gt;In the last article we looked act object oriented programming in python, I explained what objects, attributes and methods or functions are the fundamentals of OOP. In this article we will be looking at four important concepts of object-oriented programming.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Inheritance&lt;/li&gt;
+&lt;li&gt;Abstraction&lt;/li&gt;
+&lt;li&gt;Encapsulation&lt;/li&gt;
+&lt;li&gt;Polymorphism&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 class="my-3 my-md-4"&gt;Inheritance&lt;/h3&gt;
+&lt;p&gt;Inheritance involves two or more classes, The parent class and the child class. The child class has attributes and functions of the parent class because it 'inherits' from the parent class. For example, we have a parent class 'Foo' and child class 'Bar'.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;class Foo():
+    def f1(self):
+        return 'inside parent class'
+
+class Bar(Foo):
+    def f2(self):
+        return 'inside child class'
+
+bar = Bar()
+
+bar.f1() # inside parent class
+bar.f2() # inside child class
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;the function &lt;code&gt;f1()&lt;/code&gt; was defined inside of the &lt;code&gt;Foo&lt;/code&gt; class but since &lt;code&gt;Bar&lt;/code&gt; inherits from &lt;code&gt;Foo&lt;/code&gt; it has access to the methods defined in the parent class Bar.&lt;/p&gt;
+&lt;h3 class="my-3 my-md-4"&gt;Abstraction&lt;/h3&gt;
+&lt;p&gt;Abstract is a concept that enables you to use a technology without having to understand the complexity of its design and how it works. Abstraction is an interface that help use complex components without understanding it. Abstraction is everywhere, for example, a person can drive a car without understanding how the car was designed or what makes it move. In object-oriented programming we can easily apply the concept on abstraction were developers can use certain classes objects and method without understanding how it works internally. One of the main advantages of abstraction is makes building large applications less cumbersome. Django is a python web framework that heavily rely on this concept for rapid web development.&lt;/p&gt;
+&lt;h3 class="my-3 my-md-4"&gt;Encapsulation&lt;/h3&gt;
+&lt;p&gt;This is the process of wrapping data and functions that operates on the data into a single entity. It restricts access to some components of an object so users can not access attributes of a particular object. Encapsulation enables objects to be implemented with more flexibility.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;class Person:
+    def __init__(self, name=''):
+        self.name = name
+
+    def get_name(self):
+        return self.name
+
+    def __set_name(self, name):
+        self.name = name
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;In the code above the &lt;code&gt;__set_name&lt;/code&gt; method is restricted or private and cannot be accessed by users only the &lt;code&gt;get_name&lt;/code&gt; is accessible.&lt;/p&gt;
+&lt;h3 class="my-3 my-md-4"&gt;Polymorphism&lt;/h3&gt;
+&lt;p&gt;This is the ability for an object, variable or function to exists in different forms. An advantage polymorphism is that allows the reuse of code once it has been written and tested. It also helps compose powerful abstractions from simpler ones.&lt;/p&gt;</content><category term="python"></category><category term="python"></category><category term="oop"></category></entry><entry><title>Object Oriented Programming In Python</title><link href="https://pythoneer.dev/object-oriented-programming-in-python/" rel="alternate"></link><published>2022-11-26T19:45:00+00:00</published><updated>2022-11-26T19:45:00+00:00</updated><author><name>Bode Okunfolami</name></author><id>tag:pythoneer.dev,2022-11-26:/object-oriented-programming-in-python/</id><summary type="html">&lt;p&gt;Object oriented programming is a popular programming paradigm or style were code is represented as objects or associated with an object. Although python supports other programming styles everything created in python is an object. If you have learnt about the data types in python, It would please you to know …&lt;/p&gt;</summary><content type="html">&lt;p&gt;Object oriented programming is a popular programming paradigm or style were code is represented as objects or associated with an object. Although python supports other programming styles everything created in python is an object. If you have learnt about the data types in python, It would please you to know that every time you create a variable with any of the python data types they are still legally known as python objects. Before we look at python objects lets look at what an object is generally.&lt;/p&gt;
+&lt;p&gt;The concept of Object-oriented programming was gotten from the study of objects and how they relate to our surrounding. I believe that everybody reading this post knows what objects are. An object is anything with definite characteristics. For example, your smart phone is an object. The characteristics of your smart phone includes 5000mah battery capacity, 6.3 inch display screen, 4gb ram etc. Now that we have established the phone is an object and we've seen its characteristics, lets look at it's functionality. The functionality simply means what the phone can do, there are a number of things that a smart phone can do but we can list some of them as such, making phone call, browse internet, play game etc. Take note of the phone as an object, its characteristics and functionality. In summary The three main concept of objects:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Object&lt;/li&gt;
+&lt;li&gt;Characteristics or attributes&lt;/li&gt;
+&lt;li&gt;Functionality or methods or functions&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 class="my-3 my-md-4"&gt;The Object&lt;/h3&gt;
+&lt;p&gt;Now that we know what an object is and we can determine its characteristics as well as its functionality lets look at python objects. Python objects follow the same principle. To create an object in python we make use of &lt;code&gt;class&lt;/code&gt; keyword.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;class SmartPhone:
+    pass
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The code aboves create a smart phone object. This object does not yet characteristics, In python characteristics are attributes while functionality are referred to as methods or functions. Notice that the first letter of each word in the class name is in capital letter this is known as pascal casing and it is the convention for naming python classes. &lt;/p&gt;
+&lt;h3 class="my-3 my-md-4"&gt;Characteristics or Attributes&lt;/h3&gt;
+&lt;p&gt;To create some class attributes we do the following&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;class SmartPhone:
+    name = 'Samsung Galaxy A30s'
+    display = '6.4inch'
+    capacity = '5000mah'
+    ram = '4gb'
+    status = 'on'
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;This is how we represent a smart phone object with its characteristics or attributes. our object has three attributes, display, capacity and ram. We now have a smart phone object that we can use in our code. You can see that attributes are variables that are created inside of a class. These variables (attributes) belongs to the &lt;code&gt;SmartPhone&lt;/code&gt; object.&lt;/p&gt;
+&lt;h3 class="my-3 my-md-4"&gt;Functionality or Methods&lt;/h3&gt;
+&lt;p&gt;Methods are functions that perform computer operations within objects. Our smart phone method would be to make phone calls.&lt;/p&gt;
+&lt;blockquote class="custom-blockquote"&gt;
+&lt;p&gt;All methods takes a default argument &lt;code&gt;self&lt;/code&gt;. &lt;code&gt;self&lt;/code&gt; is the object  passed as an argument so the attributes of the object can be accessed at the function level.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;class SmartPhone:
+    # ...
+    status = 'on'
+
+    def power(self):
+        if self.status == 'on':
+            self.status = 'off'
+        else:
+            self.status = 'on'
+
+    def call(self, number):
+        return f'calling {number}'
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The method &lt;code&gt;call&lt;/code&gt; is a specific functionality of our &lt;code&gt;SmartPhone&lt;/code&gt; object, its function is to make phone calls to other numbers and it takes &lt;code&gt;number&lt;/code&gt; as an argument. The &lt;code&gt;power&lt;/code&gt; method function as a power button to toggle the smart phone state.&lt;/p&gt;
+&lt;p&gt;We have a smart phone object that can do two things, power on/off and make phone calls. Am guessing it should'nt be called a smart phone 😗, but we can add more features to our smart phone.&lt;/p&gt;
+&lt;h3 class="my-3 my-md-4"&gt;Initializing&lt;/h3&gt;
+&lt;blockquote class="custom-blockquote"&gt;
+&lt;p&gt;To initialize simply means to create. When we initialize an object we create it and we bring it to life. The object will be created with the parameters determined by it's &lt;code&gt;class&lt;/code&gt;.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;We have created our smart phone object, time to initialize it in your python code and make use of it. We initialize an object using parentheses &lt;em&gt;()&lt;/em&gt; after the class name.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;phone = SmartPhone() # creates a smart phone object at memory location xxxxxx
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;we can access the attributes of the smart phone object using dot notation.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;phone.name # 'Samsung galaxy A30s'
+phone.ram # '4gb'
+phone.status # 'on'
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The methods are called like normal python functions&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;phone.status # 'on'
+phone.power()
+phone.status # 'off'
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The power method toggles the power state of the object. each item the method is called if the status is off it will turn off and vice versa.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;phone.call('030-456-78') # 'calling 030-456-78'
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The call method takes an argument, the number to call.&lt;/p&gt;
+&lt;h3 class="my-3 my-md-4"&gt;Constructor&lt;/h3&gt;
+&lt;p&gt;To create different smart phone objects, like Iphone 14 pro max object or a Samsung galaxy S21 ultra, we use a constructor function. If we want to have different types of smart phone we make use of a &lt;code&gt;constructor&lt;/code&gt;. In object-oriented programming a constructor is a function that is called upon to create the object. Instead of hard coding the attributes they can be passed as arguments to the constructor to create them. In python the constructor function is always named &lt;code&gt;__init__&lt;/code&gt;. Lets re create the smart phone class.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;class SmartPhone:
+    def __init__(self, name, display, capacity, ram, status='off'):
+        self.name = name
+        self.display = display
+        self.capacity = capacity
+        self.ram = ram
+        self.status = status
+    #...
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The line &lt;code&gt;self.name = name&lt;/code&gt; converts the name variable into a class attribute. Now lets create multiple smart phone objects with different attributes &lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;samsung = SmartPhone('Samsung Galaxy S22 Ultra', '6.8inch', '5000mah', '12gb')
+iphone = SmartPhone('Iphone 14 Pro Max', '6.7inch', '4323mah', '6gb')
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;We have created two smart phone objects, its like having two phones we can use them for different purposes.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;samsung.display # '6.8'
+iphone.display # '6.7'
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;We can also use the &lt;code&gt;power&lt;/code&gt; method in the iphone object to turn it on.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;iphone.power()
+iphone.status # 'on'
+samsung.status # 'off'
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;This is object-oriented programming in python. Its not that hard to understand because almost every one can relate with the concept easily. In the next article we will look at other concepts in OOP like inheritance, abstraction etc.&lt;/p&gt;</content><category term="python"></category><category term="python"></category><category term="oop"></category></entry><entry><title>Build a Password Generator CLI With Python</title><link href="https://pythoneer.dev/build-a-password-generator-cli-with-python/" rel="alternate"></link><published>2022-11-25T20:16:00+00:00</published><updated>2022-11-25T20:16:00+00:00</updated><author><name>Bode Okunfolami</name></author><id>tag:pythoneer.dev,2022-11-25:/build-a-password-generator-cli-with-python/</id><summary type="html">&lt;p&gt;To build a password generator command line interface (cli) with python, first create a virtual environment and install click. click is a python package for creating command line utility applications. A command line interface application is a software that is run as a command on terminal or command prompt that …&lt;/p&gt;</summary><content type="html">&lt;p&gt;To build a password generator command line interface (cli) with python, first create a virtual environment and install click. click is a python package for creating command line utility applications. A command line interface application is a software that is run as a command on terminal or command prompt that performs computer operations.&lt;/p&gt;
+&lt;p&gt;Install click package with pip&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-bash"&gt;$ pip install click
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 class="my-3 my-md-4"&gt;Command line utility&lt;/h3&gt;
+&lt;p&gt;To create the command line interface create a file in your project folder called main.py and type the following code&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;import click
+
+@click.command()
+@click.argument('name')
+def main(name):
+    click.echo(f'Hello {name}')
+
+if __name__ == '__main__':
+    main()
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;This code above is a basic usage of click. The two decorators above changes an ordinary python function to command line utility that receives argument and outputs it to console.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;@click.command()
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The python decorator above turns the function into a command line utility that can be invoked with terminal or command prompt.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;@click.argument('name')
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The &lt;code&gt;@click.argument&lt;/code&gt; decorator takes in a variable &lt;code&gt;name&lt;/code&gt; as argument. arguments are values passed when the command is invoked in terminal.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-bash"&gt;$ python main.py Ade
+Hello Ade
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The argument is 'Ade' which is the name parameter in the main function. The next feature of a command line utility is the ability to pass flags or options. The presence of options in a CLI modify the output of a command. In our &lt;code&gt;main.py&lt;/code&gt; rewrite the main function to include the following.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;import click
+
+@click.command()
+@click.option('--length', default=8, help='length of password')
+@click.option('--digit/--no-digit', default=False, help='include numbers in password')
+def main(length, digit):
+    click.echo(length)
+    click.echo(digit)
+
+if __name__ == '__main__':
+    main()
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Run the program with the option&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-bash"&gt;$ python main.py --length 10 --digit
+10
+True
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;This will output 10 and in case the option is not given the default will be used. The second option is a boolean flag that defaults to &lt;code&gt;False&lt;/code&gt; if it was not used in the command.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;@click.option('--length', default=8, help='length of password')
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The above decorator allows the command to be invoked with options. Options are parameters of a cli that can change based on the user input. the decorator takes &lt;em&gt;'--length'&lt;/em&gt; as an option, with a default value of 8. The default value is used if the option is not specified in the command line.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;@click.option('--digit/--no-digit', default=False, help='include numbers in password')
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;This is a boolean option or flag to include numbers or exclude them when generating our password.&lt;/p&gt;
+&lt;h3 class="my-3 my-md-4"&gt;Generating password&lt;/h3&gt;
+&lt;p&gt;Now that we have our command line interface working lets create a function to that will generate a random string of characters. in your main.py add&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;import random
+import string
+import click
+
+def generate_password(length, is_digit):
+    '''This function returns randomly generated string'''
+    seed = string.ascii_letters
+    if is_digit: # if the number flag was raised add numbers to the seed
+        seed += string.digits
+
+    return str('').join([random.choice(seed) for i in range(length)])
+# ...
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;code&gt;generate_password&lt;/code&gt; takes length as an argument and uses it to generate a string of random letters with length of the length variable. To use the function in our cli we just simply call the function passing length as argument.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;[random.choice(string.ascii_letters) for i in range(length)]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;This is a python list comprehension for generating a list on random ascii letters the size of the length variable.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;str('').join([random.choice(string.ascii_letters) for i in range(length)])
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The &lt;code&gt;str('').join()&lt;/code&gt; method will combine all the letters in the list into a single string that can be used as a password.&lt;/p&gt;
+&lt;p&gt;Everything combined together will give:&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;import random
+import string
+import click
+
+def generate_password(length, is_digit):
+    '''This function returns randomly generated string'''
+    seed = string.ascii_letters
+    if is_digit:
+        seed += string.digits
+    return str('').join([random.choice(seed) for i in range(length)])
+
+@click.command()
+@click.option('--length', default=8, help='length of password')
+@click.option('--digit/--no-digit', default=False, help='include numbers in password')
+def main(length, digit):
+    password = generate_password(length, digit)
+    click.echo(f'Password: {password}')
+
+if __name__ == '__main__':
+    main()
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Running the command with the options will give:&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-bash"&gt;$ python main.py --length 16 --digit
+Password: C6Cdcvbax5nYcc2d
+&lt;/code&gt;&lt;/pre&gt;</content><category term="python"></category><category term="python"></category><category term="cli"></category></entry><entry><title>Python String Manipulation</title><link href="https://pythoneer.dev/python-string-manipulation/" rel="alternate"></link><published>2022-10-26T15:33:00+00:00</published><updated>2022-10-26T15:33:00+00:00</updated><author><name>Bode Okunfolami</name></author><id>tag:pythoneer.dev,2022-10-26:/python-string-manipulation/</id><summary type="html">&lt;p&gt;String is one of the primitive types in python. Manipulating strings is useful in different aspects of programming. String has a data structure similar to that of lists. A string is stored as a character sequence in memory. The null pointer denotes the end of a string in memory.&lt;/p&gt;
+&lt;p&gt;&lt;center&gt;&lt;img alt="python-string-alt" class="img-fluid my-md-4 my-3" src="https://pythoneer.dev/images/string.png"/&gt;&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;We …&lt;/p&gt;</summary><content type="html">&lt;p&gt;String is one of the primitive types in python. Manipulating strings is useful in different aspects of programming. String has a data structure similar to that of lists. A string is stored as a character sequence in memory. The null pointer denotes the end of a string in memory.&lt;/p&gt;
+&lt;p&gt;&lt;center&gt;&lt;img alt="python-string-alt" class="img-fluid my-md-4 my-3" src="https://pythoneer.dev/images/string.png"/&gt;&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;We can get a single character from a string using its index. to get the &lt;strong&gt;r&lt;/strong&gt; in &lt;em&gt;"first"&lt;/em&gt; we use its index 2. just like lists we can index string to access the individual character it consist of.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;lang = 'first'
+lang[2] # gets 'r'
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 class="my-3 my-md-4"&gt;String Methods&lt;/h3&gt;
+&lt;p&gt;Methods are functions that are attributes of a python type or object.Strings in python support a handful of methods that can be used to perform operations on them. Python comes with a built-in function for finding the length of a string. you can also convert a string from lowercase to uppercase and vise versa. The capitalize method changes the first character in the word to uppercase.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;&amp;gt;&amp;gt;&amp;gt; len(lang)
+5
+&amp;gt;&amp;gt;&amp;gt; lang.upper()
+'FIRST'
+&amp;gt;&amp;gt;&amp;gt; lang.lower()
+'first'
+&amp;gt;&amp;gt;&amp;gt; lang.capitalize()
+'First'
+&lt;/code&gt;&lt;/pre&gt;
+&lt;blockquote class="custom-blockquote"&gt;
+&lt;p&gt;Remember that the string type is immutable. Once a string is created it cannot be changed. The string methods &lt;em&gt;upper&lt;/em&gt; and &lt;em&gt;lower&lt;/em&gt; creates a new string entirely separate from the one previously declared.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;The &lt;code&gt;replace&lt;/code&gt; string method is used to replace a character or substring from a string. The replace method is very useful.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;obj = 'bed'
+obj = obj.replace('d', 'g')
+obj # 'beg'
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The string 'bed' changed to 'beg' after replacing the 'd' with a 'g'. If you want to get rid of the trailing white spaces in a string the &lt;code&gt;strip()&lt;/code&gt; method is used.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;&amp;gt;&amp;gt;&amp;gt; name = '  Adeyemi    '
+&amp;gt;&amp;gt;&amp;gt; name.strip()
+'Adeyemi' 
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;A string can been transformed to a list with the &lt;code&gt;split()&lt;/code&gt; method that takes a separator as an argument.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;&amp;gt;&amp;gt;&amp;gt; sentence = 'I am a boy walking down the street'
+&amp;gt;&amp;gt;&amp;gt; sentence.split(' ')
+['I', 'am', 'a', 'boy', 'walking', 'down', 'the', 'street']
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;In the example above the separator is a whitespace, We can also use comma or any other type of punctuations.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;&amp;gt;&amp;gt;&amp;gt; items = 'bag,shoe,shirt'
+&amp;gt;&amp;gt;&amp;gt; items.split(',')
+['bag', 'shoe', 'shirt']
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The above example is usefully when working with csv files.&lt;/p&gt;
+&lt;p&gt;Python comes with several other string methods that have their use cases. if you want to see a full list of the string method use the &lt;em&gt;dir&lt;/em&gt; built-in function.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;dir(str) # prints a list of all the available string method
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 class="my-3 my-md-4"&gt;String Concatenation&lt;/h3&gt;
+&lt;p&gt;In python two or more strings can be joined together through the process of string concatenation. The simplest way to join python strings is using the addition (+) operator. The operator supports joining multiple strings together.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;&amp;gt;&amp;gt;&amp;gt; 'Hello' + 'World'
+'HelloWorld'
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;A more modern approach is to use f-strings. F-strings eliminates the need for the addition operator. It is a cleaner way to join strings together in python.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;first_name = "John"
+last_name = "Wick"
+full_name = f"{first_name} {last_name}"
+full_name # gets 'John Wick'
+&lt;/code&gt;&lt;/pre&gt;
+&lt;blockquote class="custom-blockquote"&gt;
+&lt;p&gt;Take note of the &lt;strong&gt;f&lt;/strong&gt; before the quotes. The f converts a python string to a format string &lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Variables can be directly placed inside of the string using curl brackets. This method is cleaner than using the addition operator.&lt;/p&gt;
+&lt;h3 class="my-3 my-md-4"&gt;String Slicing&lt;/h3&gt;
+&lt;p&gt;In python you can get a parts of a string, substrings using string slicing. String slicing can be used to extract text from a string.&lt;/p&gt;
+&lt;p&gt;String slicing format&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-plaintext"&gt;string[start:end]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Just like indexing a list, we use square brackets. we specify a start index and an end index. The substring will include only the characters within the index specified. Python substring does not include the character of the end index. To get substring of the word &lt;em&gt;image.jpg&lt;/em&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;center&gt;&lt;img alt="python-string2-alt" class="img-fluid my-md-4 my-3" src="https://pythoneer.dev/images/string2.png"/&gt;&lt;/center&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;filename = 'image.jpg'
+ext = filename[6:9]
+ext # 'jpg'
+name = filename[0:5]
+name # 'image'
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;In the example above string slicing was use to separate the name of the file and its extension into different substrings. Since we are starting at the beginning of string to get the name of the file and stopping at the end to get the extension, in python you can exclude the start index if your substring is going to include the first character and you can exclude the end index if your substring will also contain the last character in the string. Lets rewrite the example above.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;filename = 'image.jpg'
+ext = filename = [6:]
+name = filename = [:5]
+ext # 'jpg'
+name # 'image'
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Here is a quick example for you: Get the substring &lt;code&gt;'age'&lt;/code&gt; from the &lt;code&gt;'image.jpg'&lt;/code&gt; string. What is the start and end index. Try to solve it using the diagram above before you see the solution below.&lt;/p&gt;
+&lt;p&gt;The solution to the problem above is:&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;filename = 'image.jpg'
+sub = filename[2:5]
+sub # 'age'
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The start index is 2 and the end index is 5. the characters in the string will only contain index 2,3 and 4 which corresponds to &lt;code&gt;'age'&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;If you've gotten to the end of this post you now have the power to bend python strings to your will. You can show off your string manipulating skills to your friends and family now.&lt;/p&gt;</content><category term="python"></category><category term="python"></category></entry><entry><title>Operators in Python</title><link href="https://pythoneer.dev/operators-in-python/" rel="alternate"></link><published>2022-10-15T10:14:00+00:00</published><updated>2022-10-19T23:22:00+00:00</updated><author><name>Bode Okunfolami</name></author><id>tag:pythoneer.dev,2022-10-15:/operators-in-python/</id><summary type="html">&lt;p&gt;Operators perform computer operations on one or more python values or expression. The value the operator is operating on is called an operand. There are three different category of operators in python. They are:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Arithmetic operators&lt;/li&gt;
+&lt;li&gt;Comparison operators&lt;/li&gt;
+&lt;li&gt;Logical operators&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 class="my-3 my-md-4"&gt;Arithmetic operators&lt;/h3&gt;
+&lt;p&gt;This operators include the four basic arithmetic operations …&lt;/p&gt;</summary><content type="html">&lt;p&gt;Operators perform computer operations on one or more python values or expression. The value the operator is operating on is called an operand. There are three different category of operators in python. They are:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Arithmetic operators&lt;/li&gt;
+&lt;li&gt;Comparison operators&lt;/li&gt;
+&lt;li&gt;Logical operators&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 class="my-3 my-md-4"&gt;Arithmetic operators&lt;/h3&gt;
+&lt;p&gt;This operators include the four basic arithmetic operations which are addition, subtraction, multiplication and division. Python can be used as a simple calculator because of these maths operators. Other operators that may not  be common to us are the modulus operator and the exponent or power operator.&lt;/p&gt;
+&lt;table class="table table-bordered"&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style="text-align: left;"&gt;Name&lt;/th&gt;
+&lt;th style="text-align: left;"&gt;Operator&lt;/th&gt;
+&lt;th style="text-align: left;"&gt;Example&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style="text-align: left;"&gt;Addition&lt;/td&gt;
+&lt;td style="text-align: left;"&gt;+&lt;/td&gt;
+&lt;td style="text-align: left;"&gt;x + y&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="text-align: left;"&gt;Subtraction&lt;/td&gt;
+&lt;td style="text-align: left;"&gt;-&lt;/td&gt;
+&lt;td style="text-align: left;"&gt;x - y&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="text-align: left;"&gt;Multiplication&lt;/td&gt;
+&lt;td style="text-align: left;"&gt;*&lt;/td&gt;
+&lt;td style="text-align: left;"&gt;x * y&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="text-align: left;"&gt;Division&lt;/td&gt;
+&lt;td style="text-align: left;"&gt;/&lt;/td&gt;
+&lt;td style="text-align: left;"&gt;x / y&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="text-align: left;"&gt;Exponentiation&lt;/td&gt;
+&lt;td style="text-align: left;"&gt;**&lt;/td&gt;
+&lt;td style="text-align: left;"&gt;x**y&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="text-align: left;"&gt;Modulus&lt;/td&gt;
+&lt;td style="text-align: left;"&gt;%&lt;/td&gt;
+&lt;td style="text-align: left;"&gt;x % y&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;Example arithmetic operations:&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;5**2 # raise 5 to the power of 2, 25
+
+5 % 2 # returns the remainder of 5 / 2, 1
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 class="my-3 my-md-4"&gt;Comparison Operators&lt;/h3&gt;
+&lt;p&gt;This operator compares two values and returns a boolean (True/False). There are 7 of them. One thing to note that in python the &lt;code&gt;==&lt;/code&gt; comparison operator is the equal-to we all know and love, not to be confused with the assignment operator &lt;code&gt;=&lt;/code&gt; used for binding a variable name to a value. The result of a comparison operation is always going to be a boolean value.&lt;/p&gt;
+&lt;table class="table table-bordered"&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style="text-align: left;"&gt;Name&lt;/th&gt;
+&lt;th style="text-align: left;"&gt;Operator&lt;/th&gt;
+&lt;th style="text-align: left;"&gt;Example&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style="text-align: left;"&gt;Equal&lt;/td&gt;
+&lt;td style="text-align: left;"&gt;==&lt;/td&gt;
+&lt;td style="text-align: left;"&gt;x == y&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="text-align: left;"&gt;Not equal&lt;/td&gt;
+&lt;td style="text-align: left;"&gt;!=&lt;/td&gt;
+&lt;td style="text-align: left;"&gt;x != y&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="text-align: left;"&gt;Greater than&lt;/td&gt;
+&lt;td style="text-align: left;"&gt;&amp;gt;&lt;/td&gt;
+&lt;td style="text-align: left;"&gt;x &amp;gt; y&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="text-align: left;"&gt;Less than&lt;/td&gt;
+&lt;td style="text-align: left;"&gt;&amp;lt;&lt;/td&gt;
+&lt;td style="text-align: left;"&gt;x &amp;lt; y&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="text-align: left;"&gt;Greater than or equal to&lt;/td&gt;
+&lt;td style="text-align: left;"&gt;&amp;gt;=&lt;/td&gt;
+&lt;td style="text-align: left;"&gt;x &amp;gt;= y&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="text-align: left;"&gt;Less than or equal to&lt;/td&gt;
+&lt;td style="text-align: left;"&gt;&amp;lt;=&lt;/td&gt;
+&lt;td style="text-align: left;"&gt;x &amp;lt;= y&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;Example comparison operations:&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;'ball' == 'ball' # True
+
+5 &amp;gt; 4 # 5 greater than 4, True
+
+15 &amp;lt; 10 # 15 less than 10, False
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 class="my-3 my-md-4"&gt;Logical Operators&lt;/h3&gt;
+&lt;p&gt;There are only three logical operators in python. Logical operators are used conditionally join values and expression to form a more complex expression. An understanding of truth table will give us an idea of the result of logical operations.&lt;/p&gt;
+&lt;table class="table table-bordered"&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style="text-align: left;"&gt;Operator&lt;/th&gt;
+&lt;th style="text-align: left;"&gt;Description&lt;/th&gt;
+&lt;th style="text-align: left;"&gt;Example&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style="text-align: left;"&gt;and&lt;/td&gt;
+&lt;td style="text-align: left;"&gt;Returns True only when both statements are true&lt;/td&gt;
+&lt;td style="text-align: left;"&gt;x == 5 and y == 10&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="text-align: left;"&gt;or&lt;/td&gt;
+&lt;td style="text-align: left;"&gt;Returns True if any of the statements is true&lt;/td&gt;
+&lt;td style="text-align: left;"&gt;x == 5 or y == 10&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="text-align: left;"&gt;not&lt;/td&gt;
+&lt;td style="text-align: left;"&gt;Opposite of the result, True gives False&lt;/td&gt;
+&lt;td style="text-align: left;"&gt;not (x == 5)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h5&gt;Truth Table&lt;/h5&gt;
+&lt;table class="table table-bordered"&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style="text-align: left;"&gt;condition X&lt;/th&gt;
+&lt;th style="text-align: left;"&gt;condition Y&lt;/th&gt;
+&lt;th style="text-align: left;"&gt;X and Y&lt;/th&gt;
+&lt;th style="text-align: left;"&gt;X or Y&lt;/th&gt;
+&lt;th style="text-align: left;"&gt;not X&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style="text-align: left;"&gt;False&lt;/td&gt;
+&lt;td style="text-align: left;"&gt;False&lt;/td&gt;
+&lt;td style="text-align: left;"&gt;False&lt;/td&gt;
+&lt;td style="text-align: left;"&gt;False&lt;/td&gt;
+&lt;td style="text-align: left;"&gt;True&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="text-align: left;"&gt;False&lt;/td&gt;
+&lt;td style="text-align: left;"&gt;True&lt;/td&gt;
+&lt;td style="text-align: left;"&gt;False&lt;/td&gt;
+&lt;td style="text-align: left;"&gt;True&lt;/td&gt;
+&lt;td style="text-align: left;"&gt;True&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="text-align: left;"&gt;True&lt;/td&gt;
+&lt;td style="text-align: left;"&gt;False&lt;/td&gt;
+&lt;td style="text-align: left;"&gt;False&lt;/td&gt;
+&lt;td style="text-align: left;"&gt;True&lt;/td&gt;
+&lt;td style="text-align: left;"&gt;False&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="text-align: left;"&gt;True&lt;/td&gt;
+&lt;td style="text-align: left;"&gt;True&lt;/td&gt;
+&lt;td style="text-align: left;"&gt;True&lt;/td&gt;
+&lt;td style="text-align: left;"&gt;True&lt;/td&gt;
+&lt;td style="text-align: left;"&gt;False&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;Example of logical operations&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;5 == 5 and 5 &amp;gt; 2 # 5 equals 5 (True) and 5 greater than 2 (True)
+
+5 != 2 or 5 &amp;lt; 4 # 5 not equals 2 (True) or 5 less than 4 (False)
+
+5 &amp;lt; 2 and 5 &amp;gt; 2 # 5 less than 2 (False) and 5 greater than 2 (True)
+
+not 5 == 5 # not 5 equals 5 (True)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;These are the classes of operators in python and their operations. Understanding them will help build the foundation for you to become an expert in python.&lt;/p&gt;</content><category term="python"></category><category term="python"></category></entry><entry><title>Understanding Variables and Data Types in Python</title><link href="https://pythoneer.dev/understanding-variables-and-data-types-in-python/" rel="alternate"></link><published>2022-10-14T11:36:00+00:00</published><updated>2022-10-19T23:36:00+00:00</updated><author><name>Bode Okunfolami</name></author><id>tag:pythoneer.dev,2022-10-14:/understanding-variables-and-data-types-in-python/</id><summary type="html">&lt;p&gt;Python is a general purpose, interpreted computer programing language. Programs written in python have zero compile time because the code are executed or interpreted at the program runtime. When you install python on your computer it comes with a software called the python interpreter. The python interpreter runs python code …&lt;/p&gt;</summary><content type="html">&lt;p&gt;Python is a general purpose, interpreted computer programing language. Programs written in python have zero compile time because the code are executed or interpreted at the program runtime. When you install python on your computer it comes with a software called the python interpreter. The python interpreter runs python code like a command line interface. We can write python code in a python interpreter and it would run the code.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;&amp;gt;&amp;gt;&amp;gt; 5
+5
+&amp;gt;&amp;gt;&amp;gt; "Ade"
+'Ade'
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The interpreter takes a value 5 and 'Ade' and returns them back without throwing any errors signifying that the code is correct and it was executed. Yes, &lt;code&gt;5&lt;/code&gt; is a value and &lt;code&gt;'Ade'&lt;/code&gt; is also a python value. A value in python is a useful information that the interpreter understands. Writing out the values literally make them useful just once. But most of the time, when writing code we often want to make use of values that we previously declared at later points in our code. This is where variables comes in.&lt;/p&gt;
+&lt;p&gt;A variable is a location in memory that stores a value. variables associates a name to a memory address where the value is stored. In python we assign variables with the assignment operator &lt;code&gt;=&lt;/code&gt;. The left side of the operator is the name of the variable and the right side of it is it's value. Lets look at our example again.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;&amp;gt;&amp;gt;&amp;gt; num = 5 # assign the value 5 to the variable num
+&amp;gt;&amp;gt;&amp;gt; num # get the value of the num variable
+5
+&amp;gt;&amp;gt;&amp;gt; name = 'Ade' # assign the value 'Ade' to the variable name
+&amp;gt;&amp;gt;&amp;gt; name # get the value of the name variable
+'Ade'
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;There are some rules to follow when naming variables, they are:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;You must not use any of python reserved keyword to name a variable.&lt;/li&gt;
+&lt;li&gt;Variables in python cannot start with a number but may contain it.&lt;/li&gt;
+&lt;li&gt;Variables must not contain special character except for underscore.&lt;/li&gt;
+&lt;li&gt;Variables are case-sensitive (ball, Ball, BALL are different).&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;The interpreter will not just accept any kind of value you type in it, The class of data that can be input to the interpreter is known as data type. There are four primitive data types in python which are:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;String&lt;/li&gt;
+&lt;li&gt;Integer&lt;/li&gt;
+&lt;li&gt;Boolean&lt;/li&gt;
+&lt;li&gt;Float&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;These are the four basic data types in python. All values in python are one of these for types.&lt;/p&gt;
+&lt;h3 class="my-3 my-md-4"&gt;String&lt;/h3&gt;
+&lt;p&gt;A string is a sequence of letters, numbers or special characters contained in a single or double quote. the string type support different kinds of operations which falls under the topic of string manipulation. The string type is immutable, that means that once created it cannot be modified. In the example above &lt;code&gt;name = 'Ade'&lt;/code&gt; is a string type. Lets look at one more.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;text = 'my name John and I am 13 years old'
+type(text) # &amp;lt;class 'str'&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Even though that looks like an integer because it has quotes python will always read it as a string.&lt;/p&gt;
+&lt;h3 class="my-3 my-md-4"&gt;Integer&lt;/h3&gt;
+&lt;p&gt;An integer includes all numbers on a number line, which are all positive and negative whole numbers. Integers support the four arithmetic operations which include addition, subtraction, multiplication and division. It also support the power operation (**) and the modulus operation (%).&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;type(1000) # &amp;lt;class 'int'&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 class="my-3 my-md-4"&gt;Float&lt;/h3&gt;
+&lt;p&gt;The float type support all the operations an integer support, the only difference is that they are fractional numbers. The are a separate types because the computer perform mathematical operations on them differently.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;type(165.35) # &amp;lt;class 'float'&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 class="my-3 my-md-4"&gt;Boolean&lt;/h3&gt;
+&lt;p&gt;The boolean data type represents one of two value, &lt;code&gt;True&lt;/code&gt; or &lt;code&gt;False&lt;/code&gt;. The result of a comparison operation is a boolean value.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;type(True) # &amp;lt;class 'bool'&amp;gt;
+type(False) # &amp;lt;class 'bool'&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The different types support different operations. When you try to perform an integer operation on a string it will raise a &lt;em&gt;TypeError&lt;/em&gt;. It is important to know the different types and how to rightly use them in your code. A &lt;em&gt;NameError&lt;/em&gt; occurs when you try to type a value that does not belong to any of the four data types above.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;&amp;gt;&amp;gt;&amp;gt; hello
+Traceback (most recent call last):
+File "&amp;lt;stdin&amp;gt;", line 1, in &amp;lt;module&amp;gt;
+NameError: name 'hello' is not defined. Did you mean: 'help'?
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Apart from the four primitive types there are other data types. The primitive data types can only store a single value in a variable. The collection data types can store multiple values in a single variable:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Lists&lt;/li&gt;
+&lt;li&gt;Dictionaries&lt;/li&gt;
+&lt;li&gt;Set&lt;/li&gt;
+&lt;li&gt;Tuple&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 class="my-3 my-md-4"&gt;Lists&lt;/h3&gt;
+&lt;p&gt;A python list is a sequence of values that can either be any of the four primitive type. A list is created or initialized with square brackets. Items in a list are separated by a comma.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;fruits = ['orange', 10, 'banana', 5]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The variable &lt;code&gt;fruits&lt;/code&gt; has four items in it. These four items are numbered with index 0 to the length of fruits minus one &lt;code&gt;(len(fruits) - 1)&lt;/code&gt;. A list of four items is numbered from 0 to 3. To access any element we make use of the index.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;&amp;gt;&amp;gt;&amp;gt; fruits[0] # get the first element using index 0
+'orange'
+&amp;gt;&amp;gt;&amp;gt; fruits[3] # get the last element with index 3
+5
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 class="my-3 my-md-4"&gt;Dictionaries&lt;/h3&gt;
+&lt;p&gt;Dictionaries store items in key-value pairs. Like a list you can store multiple values in a python dictionary. Values have keys that are used to access them later on. The keys are similar indexes in lists, the only differences is they are created by the programmer and they can be any of python primitive types.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;person = {
+    'name': 'Olamilekan',
+    'age': 23,
+    'date_of_birth': '1999-05-20'
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The keys in the dictionary are on the left side of the colon (:) while the values are on the right side. The key is used to get a value just the way index is used to get an item in a list.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;&amp;gt;&amp;gt;&amp;gt; person['name']
+'Olamilekan'
+&amp;gt;&amp;gt;&amp;gt; person['age']
+23
+&amp;gt;&amp;gt;&amp;gt; person['date_of_birth']
+'1999-05-20'
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 class="my-3 my-md-4"&gt;Tuple&lt;/h3&gt;
+&lt;p&gt;A tuple is a list that cannot be modified. A tuple is created using brackets instead of square brackets like lists. A tuple is immutable. The values in it cannot be changed.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;friuts = ('apple', 20, 'orange')
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Python will raise a &lt;em&gt;TypeError&lt;/em&gt; when you attempt to change a tuple value. This does not occur in dictionaries and list.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;&amp;gt;&amp;gt;&amp;gt; fruits[0] = 'banana'
+Traceback (most recent call last):
+    File "&amp;lt;stdin&amp;gt;", line 1, in &amp;lt;module&amp;gt;
+TypeError: 'tuple' object does not support item assignment
+&amp;gt;&amp;gt;&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 class="my-3 my-md-4"&gt;Set&lt;/h3&gt;
+&lt;p&gt;A python set is a list of items that cannot not be changed. Items in a set are not the same. Items can be removed from a set and added to the set but the item itself cannot be changed. A set is initialized with curly braces.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;fruits = {'apple', 'banana', 'orange'}
+fruits.pop() # remove the first item from the set
+fruits # ['banana', 'orange']
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;These are all the data types in python. Understanding the class of data in python and the operations they support will give you a deeper understanding of python programing language.&lt;/p&gt;</content><category term="python"></category><category term="python"></category></entry><entry><title>Back-end Development: Flask vs Django</title><link href="https://pythoneer.dev/back-end-development-flask-vs-django/" rel="alternate"></link><published>2022-10-12T12:57:00+00:00</published><updated>2022-11-25T23:10:00+00:00</updated><author><name>Bode Okunfolami</name></author><id>tag:pythoneer.dev,2022-10-12:/back-end-development-flask-vs-django/</id><summary type="html">&lt;h3 class="my-3 my-md-4"&gt;What is a server?&lt;/h3&gt;
+&lt;p&gt;A server is a computer in any location on the planet that provides computational logic and operations remotely to multiple devices.&lt;/p&gt;
+&lt;h3 class="my-3 my-md-4"&gt;What is back-end development?&lt;/h3&gt;
+&lt;p&gt;This is the process of developing software handles data of a web application. Without the back-end a website is just static …&lt;/p&gt;</summary><content type="html">&lt;h3 class="my-3 my-md-4"&gt;What is a server?&lt;/h3&gt;
+&lt;p&gt;A server is a computer in any location on the planet that provides computational logic and operations remotely to multiple devices.&lt;/p&gt;
+&lt;h3 class="my-3 my-md-4"&gt;What is back-end development?&lt;/h3&gt;
+&lt;p&gt;This is the process of developing software handles data of a web application. Without the back-end a website is just static HTML and CSS. Think of a website back-end as instructions or code that determines how data is rendered in the browser in the form of markup.The back-end contains the logic for processing data gotten interacting with website. Back-end development is also known as server-side programming. The back-end of a website is the reason why you can make a post on facebook, order an item from an e-commerce website etc. The back-end interacts with a database to store data from a website.&lt;/p&gt;
+&lt;p&gt;There are different server-side programming languages such as Python, Javascript (Nodejs), Ruby, Go etc. These languages can be used to build web application. Python is one of the best languages for web development, because of its simple syntax that almost resembles plain english. Despite it's simplicity it is a very powerful language.&lt;/p&gt;
+&lt;h3 class="my-3 my-md-4"&gt;What is a Web Framework?&lt;/h3&gt;
+&lt;p&gt;A web framework is a software that makes building websites easy. Python has many web frameworks but in this tutorial we will be looking at two of the most popular.&lt;/p&gt;
+&lt;p&gt;There are two main frameworks used in python for building web applications. The first is Django and the second Flask. Django is a robust framework with many features while flask can be considered as a micro framework. Django has a pre-determined structure and pattern of writing web apps and flask makes it very simple to get a web application up and running.&lt;/p&gt;
+&lt;h3 class="my-3 my-md-4"&gt;The Django Web Framework&lt;/h3&gt;
+&lt;p&gt;With django you can build applications that are robust and secure, it's structure makes it easy to build scalable web apps. Django is what we call a full-stack framework, it is structured into the Model-View-Template architecture. Models determines data structure. The model through the object relation mapper (ORM) let you query database tables in python instead of raw SQL. The view handle the logic of the web application like payment processing, user login/logout etc. before the html is generated with the templates and sent to the client side. Django makes it very easy to work with html forms via django forms. Django comes with is own template engine, django templates used for generating web pages.&lt;/p&gt;
+&lt;p&gt;To start a new django project&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Install django with python package manager (pip)&lt;/li&gt;
+&lt;li&gt;Start a new django project&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Install django with pip&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-bash"&gt;$ pip install django
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Create a django project&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-bash"&gt;$ django-admin startproject django_project
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The folder structure for a new django project&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-treeview"&gt;django_project/
+|-- django_project/
+|   |-- __init__.py
+|   |-- settings.py
+|   |-- urls.py
+|   `-- wsgi.py
+`-- manage.py
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Django comes with a command line utility, &lt;em&gt;manage.py&lt;/em&gt; for managing a django project. with it you can start and stop the django development server.&lt;/p&gt;
+&lt;h4&gt;settings&lt;/h4&gt;
+&lt;p&gt;This is were all the configuration of our django application is written. In settings we have our database config, template config, debug mode etc.&lt;/p&gt;
+&lt;h4&gt;urls&lt;/h4&gt;
+&lt;p&gt;This is our project root url configurations. this is were we add routes to our django app. Django comes with a default url path &lt;code&gt;'admin/'&lt;/code&gt; for django administration.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;from django.urls import path
+from django.contrib import admin
+from myapp.views import index_view
+
+urlpatterns = [
+    path('admin/', admin.site.urls), # https://example.com/admin/
+    path('', index_view) # website home https://example.com
+]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h4&gt;wsgi&lt;/h4&gt;
+&lt;p&gt;This is the file responsible for deployment of our django application. The wsgi file is the entry point to a django application used by web servers.&lt;/p&gt;
+&lt;p&gt;A django project is sectioned into apps. Apps in django represent modular parts of a django project. For example you can have an app for authentication, and another for blog etc.&lt;/p&gt;
+&lt;p&gt;A django project structure with app &lt;em&gt;myapp&lt;/em&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-treeview"&gt;django_project/
+|-- django_project/
+|   |-- settings.py
+|   |-- urls.py
+|   |-- wsgi.py
+|   `-- __init__.py
+|-- myapp/
+|   |-- migrations/
+|   |-- admin.py
+|   |-- tests.py
+|   |-- apps.py
+|   |-- models.py
+|   |-- views.py
+|   `-- __init__.py
+`-- manage.py
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h4&gt;migrations&lt;/h4&gt;
+&lt;p&gt;Migrations are changes made to a database.The migration folder contains all database migrations. migrations keep track of changes made in a database. changes made to a database can easily be reverted back if the application encounter challenges due to any reason.&lt;/p&gt;
+&lt;h4&gt;admin&lt;/h4&gt;
+&lt;p&gt;Django has a default admin website for managing a website content. We register our models that we want to access in the admin in the &lt;code&gt;admin.py&lt;/code&gt; file.&lt;/p&gt;
+&lt;h4&gt;tests&lt;/h4&gt;
+&lt;p&gt;Every good software is often well tested. Django support test-driven development based on python's built-in unit testing library. We write tests inside of the &lt;code&gt;tests.py&lt;/code&gt;.&lt;/p&gt;
+&lt;h4&gt;models&lt;/h4&gt;
+&lt;p&gt;Models are python objects that represents a database schema. For example you can have a database table 'books' with columns 'title' and 'description'. A web app's data is managed using models. Every database table must have a primary key column, django understands this and auto creates a primary key column for model.&lt;/p&gt;
+&lt;p&gt;An example of a django model&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;from django import models
+
+class Book(models.Model):
+    class Meta:
+        db_table = 'books' # table name
+
+    title = models.CharField(max_length=255) # column 1
+    description = models.TextField() # column 2
+
+    def __str__(self):
+        return self.title
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h4&gt;views&lt;/h4&gt;
+&lt;p&gt;This is where our application logic lives. Some other programming language may call this file a controller. The view handles request and perform operations based on the data it receives.A django view is an interface between the database and templates. An example of a simple django view&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;from django.shortcuts import render
+from django.http import HttpResponse
+
+def index_view(request):
+    return HttpResponse('Hello, Django') # shows 'Hello, Django' in browser
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 class="my-3 my-md-4"&gt;Flask Web Framework&lt;/h3&gt;
+&lt;p&gt;Flask is a micro framework which has a small and easy to extend core. It is easy to learn and use and it is "beginner-friendly" because it does not have boilerplate code or dependencies like other frameworks. Flask uses jinja2 for rendering templates. Flask was initially created as an April Fool's joke, but it became very popular quickly and it is still actively maintained today. We can quickly create a flask web application in a single python file 'app.py'&lt;/p&gt;
+&lt;blockquote class="custom-blockquote"&gt;
+&lt;p&gt;Flask does connect to databases by default you have to install packages for connecting to a database server.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;An example of a flask web application.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-python"&gt;from flask import Flask
+
+app = Flask(__name__) # create app
+
+@app.route('/') # register route
+def index():
+    return 'Hello, Flask' # shows 'Hello, Flask' in browser
+
+if __name__ == '__main__':
+    app.run(debug=True) # run the development server
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;With just a few lines of code we have a flask app. This feels a lot easier than django and its boilerplate code. In flask there is no pre defined project structure, you can structure your project how you want. It is a framework that is extremely flexible.&lt;/p&gt;
+&lt;h3 class="my-3 my-md-4"&gt;Conclusion&lt;/h3&gt;
+&lt;p&gt;Django and Flask are both excellent choices for your next project, but if you want to build a small project thats does not require much or you just want to have the flexibility of building web apps however you like then flask might be the best option. On the other hand, Django's learning curve may be steep but once learnt the possibilities are endless because of its rich library of tools that help build large web application in a short period of time.&lt;/p&gt;</content><category term="python"></category><category term="python"></category><category term="web development"></category><category term="flask"></category><category term="django"></category></entry></feed>

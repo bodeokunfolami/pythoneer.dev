@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-805TK7MTRE"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-805TK7MTRE');
+</script>
+
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <title> How to Create a Virtual Environment In Python? | Pythoneer </title>
+  <link rel="canonical" href="/how-to-create-a-virtual-environment-in-python/index.html">
+
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180">
+    <link rel="icon" type="image/png" href="/theme/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="/theme/favicon-16x16.png" sizes="16x16">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#333333">
+
+  <link rel="stylesheet" href="/theme/style.css">
+  <link rel="stylesheet" href="/theme/theme.css">
+  <link rel="stylesheet" href="/theme/oldstyle.css">
+
+ 
+<meta name="description" content="What is a Virtual Environment A virtual environment in python is a tool that isolates packages in your project so it does not conflict with other python packages. For example, in our main python environment, we have the python package pygame==1.9.5 which we installed and used for …" />
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@bodeokunfolami" />
+<meta name="twitter:creator" content="@bodeokunfolami" />
+<meta property="og:url" content="/how-to-create-a-virtual-environment-in-python/index.html" />
+<meta property="og:title" content="How to Create a Virtual Environment In Python?" />
+<meta property="og:description" content="What is a Virtual Environment A virtual environment in python is a tool that isolates packages in your project so it does not conflict with other python packages. For example, in our main python environment, we have the python package pygame==1.9.5 which we installed and used for …" />
+<meta property="og:image" content="/theme/ogimage.png" />
+<meta name="twitter:card" content="summary_large_image">
+
+
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg navbar-white bg-white">
+    <div class="container">
+      <div class="navbar-brand">
+        <a href="/" class="text-decoration-none">
+          <img width="80px" src="/theme/pythoneer-dev.png" alt="Pythoneer">
+        </a>  
+      </div>
+      <div class="collapse navbar-collapse">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a href="/pages/about/" class="nav-link">About</a>
+          </li>
+          <li class="nav-item">
+            <a href="/pages/contact/" class="nav-link">Contact</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <header class="header">
+    <div class="container h-100">
+      <div class="row align-items-center h-100">
+        <div class="col-sm-10">
+<span class="d-block text-uppercase fs-5 text-white">Wed 07 December 2022</span>
+<h1 class="display-2">How to Create a Virtual Environment In Python?</h1>
+<div class="d-flex justify-content-center">
+</div>
+        </div>
+    </div>
+  </div>
+</header>
+
+  <div class="main">
+    <div class="container">
+      <span class="text-muted text-uppercase"></span>
+      <h1 class="display-4 mt-3"></h1>
+      <div class="mb-md-4 mb-3"></div>
+<article class="article">
+  <div class="content">
+    <h3 class="my-3 my-md-4">What is a Virtual Environment</h3>
+<p>A virtual environment in python is a tool that isolates packages in your project so it does not conflict with other python packages. For example, in our main python environment, we have the python package <code>pygame==1.9.5</code> which we installed and used for Project A, and we want to start another project Project B that requires <code>pygame==2.1.2</code>. If we install another version of the pygame package python will not be able to differentiate between them, hence the reason for virtual environments.</p>
+<p><center>
+<img alt="img-venv-diagram" class="my-3 img-fluid shadow my-md-4" src="/images/venv-diagram.png"/>
+</center></p>
+<p>to see all the packages in your main python environment run the command.</p>
+<pre><code class="language-bash">$ pip freeze
+</code></pre>
+<p>when you run this command you should see a list of packages with their version numbers.</p>
+<h3 class="my-3 my-md-4">Why You Should Use a Virtual Environment</h3>
+<p>It is recommended to use virtual environments when working on python projects but here are a few reasons why you should use them.</p>
+<ol>
+<li>They help manage your project dependencies across multiple platforms</li>
+<li>They prevent confusion in the future when newer versions of packages are released.</li>
+<li>Keep the main python environment clean with only the necessary packages.</li>
+</ol>
+<h3 class="my-3 my-md-4">Creating a Virtual Environment</h3>
+<p>Python has a built-in module for creating virtual environments. To create a virtual environment run the following command inside your project folder.</p>
+<pre><code class="language-bash">$ python -m venv .venv
+</code></pre>
+<p>Once the virtual environment has been created the final step will be to activate it. To activate it we run the following command in your project root folder.</p>
+<p>for Linux/macOS</p>
+<pre><code class="language-bash">source .venv/bin/activate
+</code></pre>
+<p>for windows; cmd</p>
+<pre><code class="language-bash">./.venv/scripts/activate
+</code></pre>
+<p>for windows; git bash</p>
+<pre><code class="language-bash">source .venv/scripts/activate
+</code></pre>
+<p>Enter the command that corresponds to your operating system and it will activate the virtual environment that was created. The virtual environment is like the main python environment only without any packages. When you run <code>pip freeze</code> you will note that it has no packages installed inside of it.</p>
+<p>The structure of a python project using a virtual environment will usually look like this:</p>
+<pre><code class="language-treeview">project_b/
+|-- .venv/
+|    |-- bin/
+|    |-- lib/
+|    |-- .gitignore
+|    `-- pyvenv.cfg
+|-- script.py
+|-- main.py
+</code></pre>
+<p>All the packages installed inside of the probject_b virtual environment will be used for project_b only and does not affect packages of other projects.</p>   </div>
+</article>
+<ul class="list-unstyled">
+  <li class="d-inline">
+    <a href="/tag/python.html" class="badge text-bg-success text-decoration-none">python</a>
+  </li>
+  <li class="d-inline">
+    <a href="/tag/virtualenv.html" class="badge text-bg-success text-decoration-none">virtualenv</a>
+  </li>
+  <li class="d-inline">
+    <a href="/tag/venv.html" class="badge text-bg-success text-decoration-none">venv</a>
+  </li>
+</ul>
+<hr>
+<div class="mb-3">Share this:</div>
+<a target="_blank" href="https://twitter.com/intent/tweet?text=How to Create a Virtual Environment In Python? by @bodeokunfolami at https://pythoneer.dev/how-to-create-a-virtual-environment-in-python/">
+  <img src="/theme/twitter.png" width="45px" alt="share button">
+</a>
+     </div>
+  </div>
+
+  <footer class="footer pb-0">
+    <div class="container">
+      <div class="card mb-4">
+        <div class="card-body">
+          <form action="https://pythoneer.dev/sendy/subscribe" method="post" accept-charset="utf-8">
+            <label for="newsletter" class="form-label fs-4">Want to learn python? 💻</label>
+            <p class="text-muted">
+             Helpful python tips directly in your inbox 🔥
+            </p>
+            <div class="mb-3">
+              <input type="email" class="form-control" name="email" placeholder="Email Address">
+            </div>
+            <input type="hidden" name="list" value="Bb5KQVaGFx1fw0h6N4tWbw"/>
+	          <input type="hidden" name="subform" value="yes"/>
+            <button type="submit" class="btn btn-success btn-lg">Subscribe</button>
+          </form>
+        </div>
+      </div>
+    </div>
+<div class="d-flex justify-content-center">
+  <ul class="text-center list-unstyled">
+    <li class="d-inline">
+      <a href="https://www.twitter.com/bodeokunfolami" target="_blank">Twitter</a>
+    </li>
+    <span>&middot;</span>
+    <li class="d-inline">
+      <a href="https://www.github.com/bodeokunfolami" target="_blank">Github</a>
+    </li>
+    <span>&middot;</span>
+    <li class="d-inline">
+      <a href="https://www.linkedin.com/in/bode-okunfolami-04156419a/" target="_blank">Linkedin</a>
+    </li>
+    <span>&middot;</span>
+    <li class="d-inline">
+      <a href="https://www.youtube.com/@PythoneerAcademy" target="_blank">Youtube</a>
+    </li>
+  </ul>
+</div>
+<div class="d-flex justify-content-center bg-white p-2">
+  <span>2022 &copy; <a class="text-primary text-decoration-none" href="https://pythoneer.dev">Pythoneer</a></span>
+</div>  </footer>
+
+  <script type="text/javascript" src="/theme/main.js" crossorigin="anonymous"></script>
+</body>
+
+</html>

@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-805TK7MTRE"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-805TK7MTRE');
+</script>
+
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <title> Object Oriented Programming In Python | Pythoneer </title>
+  <link rel="canonical" href="/object-oriented-programming-in-python/index.html">
+
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180">
+    <link rel="icon" type="image/png" href="/theme/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="/theme/favicon-16x16.png" sizes="16x16">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#333333">
+
+  <link rel="stylesheet" href="/theme/style.css">
+  <link rel="stylesheet" href="/theme/theme.css">
+  <link rel="stylesheet" href="/theme/oldstyle.css">
+
+ 
+<meta name="description" content="Object oriented programming is a popular programming paradigm or style were code is represented as objects or associated with an object. Although python supports other programming styles everything created in python is an object. If you have learnt about the data types in python, It would please you to know …" />
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@bodeokunfolami" />
+<meta name="twitter:creator" content="@bodeokunfolami" />
+<meta property="og:url" content="/object-oriented-programming-in-python/index.html" />
+<meta property="og:title" content="Object Oriented Programming In Python" />
+<meta property="og:description" content="Object oriented programming is a popular programming paradigm or style were code is represented as objects or associated with an object. Although python supports other programming styles everything created in python is an object. If you have learnt about the data types in python, It would please you to know …" />
+<meta property="og:image" content="/theme/ogimage.png" />
+<meta name="twitter:card" content="summary_large_image">
+
+
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg navbar-white bg-white">
+    <div class="container">
+      <div class="navbar-brand">
+        <a href="/" class="text-decoration-none">
+          <img width="80px" src="/theme/pythoneer-dev.png" alt="Pythoneer">
+        </a>  
+      </div>
+      <div class="collapse navbar-collapse">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a href="/pages/about/" class="nav-link">About</a>
+          </li>
+          <li class="nav-item">
+            <a href="/pages/contact/" class="nav-link">Contact</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <header class="header">
+    <div class="container h-100">
+      <div class="row align-items-center h-100">
+        <div class="col-sm-10">
+<span class="d-block text-uppercase fs-5 text-white">Sat 26 November 2022</span>
+<h1 class="display-2">Object Oriented Programming In Python</h1>
+<div class="d-flex justify-content-center">
+</div>
+        </div>
+    </div>
+  </div>
+</header>
+
+  <div class="main">
+    <div class="container">
+      <span class="text-muted text-uppercase"></span>
+      <h1 class="display-4 mt-3"></h1>
+      <div class="mb-md-4 mb-3"></div>
+<article class="article">
+  <div class="content">
+    <p>Object oriented programming is a popular programming paradigm or style were code is represented as objects or associated with an object. Although python supports other programming styles everything created in python is an object. If you have learnt about the data types in python, It would please you to know that every time you create a variable with any of the python data types they are still legally known as python objects. Before we look at python objects lets look at what an object is generally.</p>
+<p>The concept of Object-oriented programming was gotten from the study of objects and how they relate to our surrounding. I believe that everybody reading this post knows what objects are. An object is anything with definite characteristics. For example, your smart phone is an object. The characteristics of your smart phone includes 5000mah battery capacity, 6.3 inch display screen, 4gb ram etc. Now that we have established the phone is an object and we've seen its characteristics, lets look at it's functionality. The functionality simply means what the phone can do, there are a number of things that a smart phone can do but we can list some of them as such, making phone call, browse internet, play game etc. Take note of the phone as an object, its characteristics and functionality. In summary The three main concept of objects:</p>
+<ol>
+<li>Object</li>
+<li>Characteristics or attributes</li>
+<li>Functionality or methods or functions</li>
+</ol>
+<h3 class="my-3 my-md-4">The Object</h3>
+<p>Now that we know what an object is and we can determine its characteristics as well as its functionality lets look at python objects. Python objects follow the same principle. To create an object in python we make use of <code>class</code> keyword.</p>
+<pre><code class="language-python">class SmartPhone:
+    pass
+</code></pre>
+<p>The code aboves create a smart phone object. This object does not yet characteristics, In python characteristics are attributes while functionality are referred to as methods or functions. Notice that the first letter of each word in the class name is in capital letter this is known as pascal casing and it is the convention for naming python classes. </p>
+<h3 class="my-3 my-md-4">Characteristics or Attributes</h3>
+<p>To create some class attributes we do the following</p>
+<pre><code class="language-python">class SmartPhone:
+    name = 'Samsung Galaxy A30s'
+    display = '6.4inch'
+    capacity = '5000mah'
+    ram = '4gb'
+    status = 'on'
+</code></pre>
+<p>This is how we represent a smart phone object with its characteristics or attributes. our object has three attributes, display, capacity and ram. We now have a smart phone object that we can use in our code. You can see that attributes are variables that are created inside of a class. These variables (attributes) belongs to the <code>SmartPhone</code> object.</p>
+<h3 class="my-3 my-md-4">Functionality or Methods</h3>
+<p>Methods are functions that perform computer operations within objects. Our smart phone method would be to make phone calls.</p>
+<blockquote class="custom-blockquote">
+<p>All methods takes a default argument <code>self</code>. <code>self</code> is the object  passed as an argument so the attributes of the object can be accessed at the function level.</p>
+</blockquote>
+<pre><code class="language-python">class SmartPhone:
+    # ...
+    status = 'on'
+
+    def power(self):
+        if self.status == 'on':
+            self.status = 'off'
+        else:
+            self.status = 'on'
+
+    def call(self, number):
+        return f'calling {number}'
+</code></pre>
+<p>The method <code>call</code> is a specific functionality of our <code>SmartPhone</code> object, its function is to make phone calls to other numbers and it takes <code>number</code> as an argument. The <code>power</code> method function as a power button to toggle the smart phone state.</p>
+<p>We have a smart phone object that can do two things, power on/off and make phone calls. Am guessing it should'nt be called a smart phone 😗, but we can add more features to our smart phone.</p>
+<h3 class="my-3 my-md-4">Initializing</h3>
+<blockquote class="custom-blockquote">
+<p>To initialize simply means to create. When we initialize an object we create it and we bring it to life. The object will be created with the parameters determined by it's <code>class</code>.</p>
+</blockquote>
+<p>We have created our smart phone object, time to initialize it in your python code and make use of it. We initialize an object using parentheses <em>()</em> after the class name.</p>
+<pre><code class="language-python">phone = SmartPhone() # creates a smart phone object at memory location xxxxxx
+</code></pre>
+<p>we can access the attributes of the smart phone object using dot notation.</p>
+<pre><code class="language-python">phone.name # 'Samsung galaxy A30s'
+phone.ram # '4gb'
+phone.status # 'on'
+</code></pre>
+<p>The methods are called like normal python functions</p>
+<pre><code class="language-python">phone.status # 'on'
+phone.power()
+phone.status # 'off'
+</code></pre>
+<p>The power method toggles the power state of the object. each item the method is called if the status is off it will turn off and vice versa.</p>
+<pre><code class="language-python">phone.call('030-456-78') # 'calling 030-456-78'
+</code></pre>
+<p>The call method takes an argument, the number to call.</p>
+<h3 class="my-3 my-md-4">Constructor</h3>
+<p>To create different smart phone objects, like Iphone 14 pro max object or a Samsung galaxy S21 ultra, we use a constructor function. If we want to have different types of smart phone we make use of a <code>constructor</code>. In object-oriented programming a constructor is a function that is called upon to create the object. Instead of hard coding the attributes they can be passed as arguments to the constructor to create them. In python the constructor function is always named <code>__init__</code>. Lets re create the smart phone class.</p>
+<pre><code class="language-python">class SmartPhone:
+    def __init__(self, name, display, capacity, ram, status='off'):
+        self.name = name
+        self.display = display
+        self.capacity = capacity
+        self.ram = ram
+        self.status = status
+    #...
+</code></pre>
+<p>The line <code>self.name = name</code> converts the name variable into a class attribute. Now lets create multiple smart phone objects with different attributes </p>
+<pre><code class="language-python">samsung = SmartPhone('Samsung Galaxy S22 Ultra', '6.8inch', '5000mah', '12gb')
+iphone = SmartPhone('Iphone 14 Pro Max', '6.7inch', '4323mah', '6gb')
+</code></pre>
+<p>We have created two smart phone objects, its like having two phones we can use them for different purposes.</p>
+<pre><code class="language-python">samsung.display # '6.8'
+iphone.display # '6.7'
+</code></pre>
+<p>We can also use the <code>power</code> method in the iphone object to turn it on.</p>
+<pre><code class="language-python">iphone.power()
+iphone.status # 'on'
+samsung.status # 'off'
+</code></pre>
+<p>This is object-oriented programming in python. Its not that hard to understand because almost every one can relate with the concept easily. In the next article we will look at other concepts in OOP like inheritance, abstraction etc.</p>   </div>
+</article>
+<ul class="list-unstyled">
+  <li class="d-inline">
+    <a href="/tag/python.html" class="badge text-bg-success text-decoration-none">python</a>
+  </li>
+  <li class="d-inline">
+    <a href="/tag/oop.html" class="badge text-bg-success text-decoration-none">oop</a>
+  </li>
+</ul>
+<hr>
+<div class="mb-3">Share this:</div>
+<a target="_blank" href="https://twitter.com/intent/tweet?text=Object Oriented Programming In Python by @bodeokunfolami at https://pythoneer.dev/object-oriented-programming-in-python/">
+  <img src="/theme/twitter.png" width="45px" alt="share button">
+</a>
+     </div>
+  </div>
+
+  <footer class="footer pb-0">
+    <div class="container">
+      <div class="card mb-4">
+        <div class="card-body">
+          <form action="https://pythoneer.dev/sendy/subscribe" method="post" accept-charset="utf-8">
+            <label for="newsletter" class="form-label fs-4">Want to learn python? 💻</label>
+            <p class="text-muted">
+             Helpful python tips directly in your inbox 🔥
+            </p>
+            <div class="mb-3">
+              <input type="email" class="form-control" name="email" placeholder="Email Address">
+            </div>
+            <input type="hidden" name="list" value="Bb5KQVaGFx1fw0h6N4tWbw"/>
+	          <input type="hidden" name="subform" value="yes"/>
+            <button type="submit" class="btn btn-success btn-lg">Subscribe</button>
+          </form>
+        </div>
+      </div>
+    </div>
+<div class="d-flex justify-content-center">
+  <ul class="text-center list-unstyled">
+    <li class="d-inline">
+      <a href="https://www.twitter.com/bodeokunfolami" target="_blank">Twitter</a>
+    </li>
+    <span>&middot;</span>
+    <li class="d-inline">
+      <a href="https://www.github.com/bodeokunfolami" target="_blank">Github</a>
+    </li>
+    <span>&middot;</span>
+    <li class="d-inline">
+      <a href="https://www.linkedin.com/in/bode-okunfolami-04156419a/" target="_blank">Linkedin</a>
+    </li>
+    <span>&middot;</span>
+    <li class="d-inline">
+      <a href="https://www.youtube.com/@PythoneerAcademy" target="_blank">Youtube</a>
+    </li>
+  </ul>
+</div>
+<div class="d-flex justify-content-center bg-white p-2">
+  <span>2022 &copy; <a class="text-primary text-decoration-none" href="https://pythoneer.dev">Pythoneer</a></span>
+</div>  </footer>
+
+  <script type="text/javascript" src="/theme/main.js" crossorigin="anonymous"></script>
+</body>
+
+</html>

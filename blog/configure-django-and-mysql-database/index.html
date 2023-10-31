@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-805TK7MTRE"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-805TK7MTRE');
+</script>
+
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <title> Configure Django And MySQL Database | Pythoneer </title>
+  <link rel="canonical" href="/configure-django-and-mysql-database/index.html">
+
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180">
+    <link rel="icon" type="image/png" href="/theme/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="/theme/favicon-16x16.png" sizes="16x16">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#333333">
+
+  <link rel="stylesheet" href="/theme/style.css">
+  <link rel="stylesheet" href="/theme/theme.css">
+  <link rel="stylesheet" href="/theme/oldstyle.css">
+
+ 
+<meta name="description" content="In this post, I will show you how to set up Django with MySQL database. This tutorial assumes you already have MySQL installed on your computer. Django comes with a default SQLite database that does not require any setup. SQLite databases are not good for large scale applications therefore, it …" />
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@bodeokunfolami" />
+<meta name="twitter:creator" content="@bodeokunfolami" />
+<meta property="og:url" content="/configure-django-and-mysql-database/index.html" />
+<meta property="og:title" content="Configure Django And MySQL Database" />
+<meta property="og:description" content="In this post, I will show you how to set up Django with MySQL database. This tutorial assumes you already have MySQL installed on your computer. Django comes with a default SQLite database that does not require any setup. SQLite databases are not good for large scale applications therefore, it …" />
+<meta property="og:image" content="/theme/ogimage.png" />
+<meta name="twitter:card" content="summary_large_image">
+
+
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg navbar-white bg-white">
+    <div class="container">
+      <div class="navbar-brand">
+        <a href="/" class="text-decoration-none">
+          <img width="80px" src="/theme/pythoneer-dev.png" alt="Pythoneer">
+        </a>  
+      </div>
+      <div class="collapse navbar-collapse">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a href="/pages/about/" class="nav-link">About</a>
+          </li>
+          <li class="nav-item">
+            <a href="/pages/contact/" class="nav-link">Contact</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <header class="header">
+    <div class="container h-100">
+      <div class="row align-items-center h-100">
+        <div class="col-sm-10">
+<span class="d-block text-uppercase fs-5 text-white">Tue 17 January 2023</span>
+<h1 class="display-2">Configure Django And MySQL Database</h1>
+<div class="d-flex justify-content-center">
+</div>
+        </div>
+    </div>
+  </div>
+</header>
+
+  <div class="main">
+    <div class="container">
+      <span class="text-muted text-uppercase"></span>
+      <h1 class="display-4 mt-3"></h1>
+      <div class="mb-md-4 mb-3"></div>
+<article class="article">
+  <div class="content">
+    <p>In this post, I will show you how to set up Django with MySQL database. This tutorial assumes you already have MySQL installed on your computer. Django comes with a default SQLite database that does not require any setup. SQLite databases are not good for large scale applications therefore, it is recommended you use a secure database like MySQL for your projects. Mysql is not free software but it has a free community version you can download from <a href="https://dev.mysql.com/downloads/mysql/" target="_blank">here</a>.</p>
+<p>When you first install MySQL, it comes with a default root user. In some cases, you will be required to set a password for the root user; in others, you will not. It is not recommended to use MySQL's root user, so we are going to create a new user and grant the user the privileges from the root user. </p>
+<h3 class="my-3 my-md-4">Setup MySQL</h3>
+<p>Enter the MySQL shell with the following command</p>
+<pre><code class="language-bash">mysql -u root
+</code></pre>
+<p>If you configured a password during your installation you use the command below. This will show you a prompt where you can now enter your password.</p>
+<pre><code class="language-bash">mysql -u root -p
+</code></pre>
+<p>If you are using ubuntu or Debian Linux and the above commands did not work for you use:</p>
+<pre><code class="language-bash">sudo mysql
+</code></pre>
+<p>Create the database</p>
+<pre><code class="language-sql">CREATE DATABASE mydb;
+</code></pre>
+<p>Create a new user with a password.</p>
+<pre><code class="language-sql">CREATE USER 'dapo'@'localhost' IDENTIFIED BY 'password';
+</code></pre>
+<p>Grant privileges to your new user</p>
+<pre><code class="language-sql">GRANT ALL PRIVILEGES ON mydb.* TO 'dapo'@'localhost' WITH GRANT OPTION;
+</code></pre>
+<p>This command will allow the user have full access to the database <code>mydb</code>.</p>
+<p>Then finally use the flush command to refresh.</p>
+<pre><code class="language-sql">FLUSH PRIVILEGES;
+</code></pre>
+<h3 class="my-3 my-md-4">Setup Django</h3>
+<p>Before we can configure our Django app with MySQL first we need the following packages:</p>
+<ul>
+<li>mysqlclient</li>
+<li>django-environ</li>
+</ul>
+<h4>mysqlclient</h4>
+<p>This is the package that allows MySQL to communicate with our Django server if you do not have it then your Django app will not run.</p>
+<p>Install command:</p>
+<pre><code class="language-bash">pip install mysqlclient
+</code></pre>
+<h4>django-environ</h4>
+<p>This is a package that allows us to manage environment variables easily, using a .env file. This package makes configuring MySQL with Django easy. </p>
+<p>Install command:</p>
+<pre><code class="language-bash">pip install django-environ
+</code></pre>
+<p>After you have installed the packages create a file called .env beside the settings.py file in your Django project.</p>
+<pre><code class="language-treeview">django_project/
+|-- django_project/
+|   |-- .env
+|   |-- settings.py
+|   |-- urls.py
+|   |-- wsgi.py
+|   `-- __init__.py
+</code></pre>
+<p>Inside the .env file create an environment variable <code>DATABASE_URL</code> with the connection string as the value</p>
+<pre><code class="language-plaintext">DATABASE_URL=mysql://dapo:password@localhost/mydb
+</code></pre>
+<p>Import the environ module and load the environment variable inside of the settings.py.</p>
+<pre><code class="language-python">import environ
+
+# Load the environment variable inside python
+env = environ.Env()
+environ.Env.read_env()
+</code></pre>
+<p>Finally, use the env variable to load the database configuration inside of the <code>DATABASES</code> python dictionary located inside <code>settings.py</code> file.</p>
+<pre><code class="language-python"># The database configuration will be generated from
+# the connection string in the .env file
+DATABASES = {
+  'default': env.db()
+}
+</code></pre>
+<p>The <code>env.db()</code> function will generate the configuration dictionary for MySQL with the <code>DATABASE_URL</code> environment variable.</p>
+<pre><code class="language-python">{
+  'NAME': 'mydb', 
+  'USER': 'dapo', 
+  'PASSWORD': 'password', 
+  'HOST': 'localhost', 
+  'PORT': 3306, 
+  'ENGINE': 'django.db.backends.mysql'
+}
+</code></pre>
+<blockquote class="custom-blockquote">
+<p>You can connect to MySQL database hosted on another server. Change the HOST from localhost to the server's HOST name and set the PORT the server is using. The default PORT for MySQL is 3306. This is what most servers will use.</p>
+</blockquote>
+<p>If you have reached the end of this article, You should be able to use django-environ to setup Django and MySQL. I know you can, because its not difficult. </p>   </div>
+</article>
+<ul class="list-unstyled">
+  <li class="d-inline">
+    <a href="/tag/django.html" class="badge text-bg-success text-decoration-none">django</a>
+  </li>
+  <li class="d-inline">
+    <a href="/tag/python.html" class="badge text-bg-success text-decoration-none">python</a>
+  </li>
+  <li class="d-inline">
+    <a href="/tag/mysql.html" class="badge text-bg-success text-decoration-none">mysql</a>
+  </li>
+</ul>
+<hr>
+<div class="mb-3">Share this:</div>
+<a target="_blank" href="https://twitter.com/intent/tweet?text=Configure Django And MySQL Database by @bodeokunfolami at https://pythoneer.dev/configure-django-and-mysql-database/">
+  <img src="/theme/twitter.png" width="45px" alt="share button">
+</a>
+     </div>
+  </div>
+
+  <footer class="footer pb-0">
+    <div class="container">
+      <div class="card mb-4">
+        <div class="card-body">
+          <form action="https://pythoneer.dev/sendy/subscribe" method="post" accept-charset="utf-8">
+            <label for="newsletter" class="form-label fs-4">Want to learn python? 💻</label>
+            <p class="text-muted">
+             Helpful python tips directly in your inbox 🔥
+            </p>
+            <div class="mb-3">
+              <input type="email" class="form-control" name="email" placeholder="Email Address">
+            </div>
+            <input type="hidden" name="list" value="Bb5KQVaGFx1fw0h6N4tWbw"/>
+	          <input type="hidden" name="subform" value="yes"/>
+            <button type="submit" class="btn btn-success btn-lg">Subscribe</button>
+          </form>
+        </div>
+      </div>
+    </div>
+<div class="d-flex justify-content-center">
+  <ul class="text-center list-unstyled">
+    <li class="d-inline">
+      <a href="https://www.twitter.com/bodeokunfolami" target="_blank">Twitter</a>
+    </li>
+    <span>&middot;</span>
+    <li class="d-inline">
+      <a href="https://www.github.com/bodeokunfolami" target="_blank">Github</a>
+    </li>
+    <span>&middot;</span>
+    <li class="d-inline">
+      <a href="https://www.linkedin.com/in/bode-okunfolami-04156419a/" target="_blank">Linkedin</a>
+    </li>
+    <span>&middot;</span>
+    <li class="d-inline">
+      <a href="https://www.youtube.com/@PythoneerAcademy" target="_blank">Youtube</a>
+    </li>
+  </ul>
+</div>
+<div class="d-flex justify-content-center bg-white p-2">
+  <span>2022 &copy; <a class="text-primary text-decoration-none" href="https://pythoneer.dev">Pythoneer</a></span>
+</div>  </footer>
+
+  <script type="text/javascript" src="/theme/main.js" crossorigin="anonymous"></script>
+</body>
+
+</html>

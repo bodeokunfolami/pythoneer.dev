@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block head %}
+  {{ super() }}
+  {% if DESCRIPTION %}
+    <meta name="description" content="{{ DESCRIPTION|striptags }}">
+  {% endif %}
+{% endblock %}
+
+{% block title %}
+  {{ SITENAME }} | {{ SITESUBTITLE }}
+{% endblock %}
+
+{% block page_title %}
+<h1 class="fw-bold display-2 text-dark">Python Programming Articles</h1>
+<p>Learn the most popular programming language</p>
+{% endblock %}
+
+{% block content %}
+  {% for article in articles_page.object_list %}
+  <div class="card border-0">
+    <div class="card-body p-0">
+    <article class="row teaser">
+      <header class="col-sm-4 text-muted d-none">
+        <ul>
+          <li title="{{ article.date.isoformat() }}">
+            <i class="fa-regular fa-clock"></i>
+            {{ article.locale_date }}
+          </li>
+          <li>
+            <i class="fa-regular fa-folder-open"></i>
+            <a href="{{ SITEURL }}/{{ article.category.url }}" class="text-decoration-none text-uppercase">{{ article.category }}</a>
+          </li>
+        </ul>
+      </header>
+      <div class="col-sm-12">
+        <span class="small text-muted text-uppercase">
+          {{ article.locale_date }}
+        </span>
+        <h3 class="title my-md-3">
+          <a href="{{ SITEURL }}/{{ article.url }}" class="fw-bold">{{ article.title }}{% if article.link %} <i class="fas fa-link"></i>{% endif %}</a>
+        </h3>
+        <ul class="list-unstyled">
+        {% for tag in article.tags %}
+          <li class="d-inline">
+            <a href="{{ SITEURL }}/{{ tag.url }}" class="text-decoration-none badge text-bg-success">{{ tag }}</a>
+          </li>
+        {% endfor %}
+        </ul>
+        <div class="content mb-2">
+          {{ article.summary|striptags }}
+        </div>
+        <a href="{{ SITEURL}}/{{ article.url }}" class="text-primary text-decoration-none">Read more →</a>
+      </div>
+    </article>
+      </div>
+    </div>
+    {% if not loop.last %}
+      <div class="mb-md-4 mb-3"></div>
+    {% endif %}
+  {% endfor %}
+  {% include 'include/pagination.html' %}
+{% endblock %}
